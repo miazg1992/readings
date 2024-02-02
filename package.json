@@ -11,7 +11,9 @@
     "lint-staged": "^15.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
+    "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -21,13 +23,13 @@
     "eject": "react-scripts eject"
   },
   "lint-staged": {
-     "src/**/*.{js,json,css,scss}": [
-       "prettier --write"
-     ]
-   },
+    "src/**/*.{js,json,css,scss}": [
+      "prettier --write"
+    ]
+  },
   "husky": {
     "hooks": {
-    "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "browserslist": {
