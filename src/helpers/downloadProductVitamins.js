@@ -1,3 +1,8 @@
+import React from 'react';
+
+import { ProductsContext } from 'providers/ProductsProvider';
+import { useContext } from 'react';
+
 const data = [
   { name: 'Pomarańcza', fdcId: '2344665' },
   { name: 'Truskawki', fdcId: 'sss' },
@@ -53,6 +58,7 @@ export const downloadVitaminsByProductId = (fdcId) => {
 };
 
 export const downloadVitaminsByProductName = (name) => {
+  // const { handleFoundProducts } = useContext(ProductsContext);
   const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=${name}`;
   // const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=kale`;
 
@@ -76,17 +82,19 @@ export const downloadVitaminsByProductName = (name) => {
         //   product.description.toLowerCase() === name.toLowerCase()
         // )
         if (!product.ingredients) {
-          console.log('czysty produkt');
-          console.log(product);
+          // console.log('czysty produkt');
+          // console.log(product);
         } else {
-          console.log('produkt nie spłenia założeń');
-          console.log(product);
+          // console.log('produkt nie spłenia założeń');
+          // console.log(product);
         }
         // const description = product.description;
         // const opis = description.includes == 'raw' ? 'surowy' : 'inny';
       });
+      console.log(products.foods);
+      // handleFoundProducts(products.foods);
 
-      return products;
+      return products.foods;
     })
     //wykonuje gdy rozstrzygnięcie - odrzucona
     .catch((err) => console.log(err));
