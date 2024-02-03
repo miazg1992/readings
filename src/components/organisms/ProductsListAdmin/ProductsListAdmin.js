@@ -8,6 +8,7 @@ import { Button } from 'components/atoms/Button/Button';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import FormField from 'components/molecules/FormField/FormField';
 import { Input } from 'components/atoms/Input/Input';
+import { AddProductToDB } from 'components/organisms/AddProductToDB/AddProductToDB';
 
 const ProductsListAdmin = () => {
   const { foundProducts } = useContext(ProductsContext);
@@ -18,7 +19,7 @@ const ProductsListAdmin = () => {
       <StyledList>
         {foundProducts.map(({ allHighlightFields, description, fdcId }) => (
           <>
-            <ProductsListItem
+            {/* <ProductsListItem
               key={fdcId}
               name={allHighlightFields}
               amount={description}
@@ -33,7 +34,8 @@ const ProductsListAdmin = () => {
               }
             >
               Dodaj produkt do bazy
-            </Button>
+            </Button> */}
+            <AddProductToDB></AddProductToDB>
           </>
         ))}
       </StyledList>
