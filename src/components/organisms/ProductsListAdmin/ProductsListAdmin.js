@@ -2,7 +2,7 @@ import { Title } from 'components/atoms/Title/Title';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { StyledList } from '../ProductsList/ProductsList.styles';
-import ProductsListItem from 'components/molecules/ProductsListItem/ProductsListItem.js';
+import ProductsListItemAdmin from 'components/molecules/ProductsListItemAdmin/ProductsListItemAdmin.js';
 import { ProductsContext } from 'providers/ProductsProvider';
 import { Button } from 'components/atoms/Button/Button';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
@@ -19,23 +19,16 @@ const ProductsListAdmin = () => {
       <StyledList>
         {foundProducts.map(({ allHighlightFields, description, fdcId }) => (
           <>
-            {/* <ProductsListItem
+            <ProductsListItemAdmin
               key={fdcId}
               name={allHighlightFields}
-              amount={description}
+              description={description}
               id={fdcId}
             />
-            <Input></Input>
-            <Button
-              onClick={() =>
-                console.log(
-                  `Dodawanie do bazy ${allHighlightFields}  ${description} ${fdcId}`,
-                )
-              }
-            >
-              Dodaj produkt do bazy
-            </Button> */}
-            <AddProductToDB></AddProductToDB>
+            <AddProductToDB
+              description={description}
+              fdcId={fdcId}
+            ></AddProductToDB>
           </>
         ))}
       </StyledList>

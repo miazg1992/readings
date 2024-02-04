@@ -57,10 +57,12 @@ const ProductsProvider = ({ children }) => {
     console.log('admin dodaje produkt ');
     console.log(availableProducts);
     const newProduct = {
+      description: values.description,
       name: values.name,
-      fdcId: values.amount,
+      fdcId: values.fdcId,
     };
     setAvailableProducts([newProduct, ...availableProducts]);
+    console.log(availableProducts);
   };
 
   return (

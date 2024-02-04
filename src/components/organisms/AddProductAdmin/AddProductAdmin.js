@@ -13,7 +13,7 @@ const initialFormState = {
   error: '',
 };
 
-const AddProductAdmin = () => {
+const AddProductAdmin = ({}) => {
   const { formValues, handleInputChange } = useForm(initialFormState);
   const {
     handleFoundProducts,

@@ -3,22 +3,39 @@ import { Wrapper } from './AddProducyToDB.styles';
 import ProductsListItem from 'components/molecules/ProductsListItem/ProductsListItem';
 import { useForm } from 'hooks/useForm';
 import { Button } from 'components/atoms/Button/Button';
+import { useContext, useEffect } from 'react';
+import { ProductsContext } from 'providers/ProductsProvider';
 
-export const AddProductToDB = ({ allHighlightFields, description, fdcId }) => {
-  const { handleInputChange } = useForm;
+const initialFormState = {
+  name: '',
+};
+
+export const AddProductToDB = ({ description, fdcId }) => {
+  const { handleAddProductToAvailableProducts } = useContext(ProductsContext);
+  const { formValues, handleInputChange } = useForm(initialFormState);
+
+  const handleSubmitProduct = (e) => {
+    e.preventDefault();
+    if (formValues.name) {
+      handleAddProductToAvailableProducts({
+        description: description,
+        name: formValues.name,
+        fdcId: fdcId,
+      });
+      console.log(
+        `Dodawanie do bazy danych ${description} ${fdcId} ${formValues.name}`,
+      );
+    }
+  };
+
   return (
-    <Wrapper as="form">
+    <Wrapper as="form" onSubmit={handleSubmitProduct}>
       <FormField
         label="Nazwa po polsku"
         name="name"
+        value={formValues.name}
         id="product"
         onChange={handleInputChange}
-      ></FormField>
-      <FormField
-        onChange={console.log('Dodawanie do bazy')}
-        label="Nazwa po polsku II"
-        name="name"
-        id="product"
       ></FormField>
       <Button type="submit">Dodaj do bazy danych</Button>
     </Wrapper>
