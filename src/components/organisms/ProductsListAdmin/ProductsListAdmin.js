@@ -26,6 +26,7 @@ const ProductsListAdmin = () => {
               id={fdcId}
             />
             <AddProductToDB
+              namEN={allHighlightFields}
               description={description}
               fdcId={fdcId}
             ></AddProductToDB>

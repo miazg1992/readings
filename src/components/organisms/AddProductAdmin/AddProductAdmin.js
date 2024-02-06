@@ -62,7 +62,7 @@ const AddProductAdmin = ({}) => {
         onChange={handleInputChange}
       ></FormField>
 
-      <Button type="submit">Dodaj produkt do bazy</Button>
+      <Button type="submit">Wyszukaj produkt w bazie</Button>
     </ViewWrapper>
   );
 };

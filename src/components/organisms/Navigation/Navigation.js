@@ -8,13 +8,6 @@ import {
 const Navigation = () => {
   return (
     <Wrapper>
-      <Logo>
-        <h1>
-          Study
-          <br />
-          Buddy
-        </h1>
-      </Logo>
       <StyledLink to="/">Dashboard</StyledLink>
       <StyledLink to="/add-product">Dodaj produkt</StyledLink>
       <StyledLink to="/add-product-admin">

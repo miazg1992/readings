@@ -25,10 +25,9 @@ const data = [
 ];
 
 export const downloadVitaminsByProductId = (fdcId) => {
-  // const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
-  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=flaxseed`;
+  const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
   // const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=kale`;
-  console.log(url);
+  console.log(fdcId);
 
   fetch(url) //obietnica - oczekujący (pending)
     // obietnica - rozstrzygnieta (spełnione | odrzucone)

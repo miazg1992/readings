@@ -1,6 +1,7 @@
 export const theme = {
   colors: {
-    white: '#FFFFFF',
+    // white: '#FFFFFF',
+    white: '#FFFFFFDD',
     lightGrey: '#F7F8FA',
     grey: '#C0C7D6',
     darkGrey: '#737C8E',
@@ -10,8 +11,13 @@ export const theme = {
     warning: '#E1D888',
     darkPurple: '#C0C7D6',
     lightPurple: '#ECEFF7',
+    primary: '#FFc203',
+    secondary: '#BFFF8A',
+    // primary: '#B5B624',
+    // secondary: '#B5B624',
   },
   fontSize: {
+    xxl: '50px',
     xl: '24px',
     l: '17px',
     m: '12px',

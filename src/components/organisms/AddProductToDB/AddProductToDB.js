@@ -10,7 +10,7 @@ const initialFormState = {
   name: '',
 };
 
-export const AddProductToDB = ({ description, fdcId }) => {
+export const AddProductToDB = ({ nameEN, description, fdcId }) => {
   const { handleAddProductToAvailableProducts } = useContext(ProductsContext);
   const { formValues, handleInputChange } = useForm(initialFormState);
 
@@ -18,12 +18,13 @@ export const AddProductToDB = ({ description, fdcId }) => {
     e.preventDefault();
     if (formValues.name) {
       handleAddProductToAvailableProducts({
+        nameEN: nameEN,
         description: description,
         name: formValues.name,
         fdcId: fdcId,
       });
       console.log(
-        `Dodawanie do bazy danych ${description} ${fdcId} ${formValues.name}`,
+        `Dodawanie do bazy danych ${nameEN}${description} ${fdcId} ${formValues.name}`,
       );
     }
   };

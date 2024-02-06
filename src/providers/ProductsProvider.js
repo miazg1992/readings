@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 // import { users as usersData } from 'data/users';
+import { downloadVitaminsByProductId } from 'helpers/downloadProductVitamins';
 
 export const ProductsContext = React.createContext({
   products: [],
@@ -32,8 +33,28 @@ const ProductsProvider = ({ children }) => {
   };
 
   const handleFoundProducts = (name) => {
-    const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=${name}`;
+    // const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=${name}`;
 
+    // fetch(url)
+    //   .then((response) => {
+    //     if (response.status !== 200) {
+    //       throw Error('To nie jest odpowedź 200');
+    //     } else {
+    //       return response.json(); //Fetch API = json() z body wyodrębnia json i parsuje na obiekt
+    //     }
+    //   })
+    //   .then((json) => {
+    //     const products = json;
+    //     products.foods.forEach((product, index) => {});
+    //     console.log(products.foods);
+    //     setFoundProducts(products.foods, ...foundProducts);
+    //     return products.foods;
+    //   })
+    //   //wykonuje gdy rozstrzygnięcie - odrzucona
+    //   .catch((err) => console.log(err));
+    const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=${name}`;
+    // const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=kale`;
+    console.log(url);
     fetch(url)
       .then((response) => {
         if (response.status !== 200) {
@@ -43,13 +64,14 @@ const ProductsProvider = ({ children }) => {
         }
       })
       .then((json) => {
-        const products = json;
-        products.foods.forEach((product, index) => {});
+        const products = json.foods;
+        setFoundProducts(products, ...foundProducts);
+
         console.log(products.foods);
-        setFoundProducts(products.foods);
+        // handleFoundProducts(products.foods);
+
         return products.foods;
       })
-      //wykonuje gdy rozstrzygnięcie - odrzucona
       .catch((err) => console.log(err));
   };
 
@@ -58,7 +80,8 @@ const ProductsProvider = ({ children }) => {
     console.log(availableProducts);
     const newProduct = {
       description: values.description,
-      name: values.name,
+      nameEN: values.description,
+      namePL: values.name,
       fdcId: values.fdcId,
     };
     setAvailableProducts([newProduct, ...availableProducts]);

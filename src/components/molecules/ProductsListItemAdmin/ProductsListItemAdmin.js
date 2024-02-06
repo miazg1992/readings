@@ -1,8 +1,13 @@
 import React from 'react';
 
-const ProductsListItemAdmin = ({ key, name, description, id }) => {
+const ProductsListItemAdmin = ({ name, description, id }) => {
   const markup = { __html: name };
-  return <div dangerouslySetInnerHTML={markup} />;
+  return (
+    <>
+      {name ? <div dangerouslySetInnerHTML={markup} /> : null}
+      {description ? <p> {description} </p> : null}
+    </>
+  );
 };
 
 export default ProductsListItemAdmin;

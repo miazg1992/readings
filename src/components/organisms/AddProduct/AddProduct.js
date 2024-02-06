@@ -8,6 +8,8 @@ import { ProductsContext } from 'providers/ProductsProvider';
 import { downloadVitaminsByProductName } from 'helpers/downloadProductVitamins';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import axios from 'axios';
+import { downloadVitaminsByProductId } from 'helpers/downloadProductVitamins';
+import FormFieldSelect from 'components/molecules/FormField/FormFieldSelect';
 
 const initialFormState = {
   name: '',
@@ -37,38 +39,50 @@ const AddProduct = () => {
   const { formValues, handleInputChange } = useForm(initialFormState);
   const { availableProducts, handleAddProduct } = useContext(ProductsContext);
 
+  const matchEnglishVersion = (name) => {
+    availableProducts.forEach((product) => {
+      if (product.namePL === name) {
+        console.log(
+          'trzeba pobrać ten produkt' + product.namePL + product.nameEN,
+        );
+        downloadVitaminsByProductId(product.fdcId);
+      }
+    });
+  };
+
   const handleSubmitProduct = (e) => {
     e.preventDefault();
     handleAddProduct(formValues);
-    downloadVitaminsByProductName(formValues.name);
+    matchEnglishVersion(formValues.name);
   };
 
   // const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.REACT_APP_FDC_TOKEN}`;
   // const URL = `https://api.nal.usda.gov/fdc/v1/foods?api_key=${process.env.REACT_APP_FDC_TOKEN}`;
   const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.REACT_APP_FDC_TOKEN}`;
 
-  useEffect(() => {
-    axios
-      .post(URL, query)
-      .then((data) => {
-        console.log(data);
-        // setArticles(data.allArticles);
-      })
-      .catch((err) => {
-        console.log(err);
-        // setError('Przepraszamy, nie mogliśmy pobrać artykułów');
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post(URL, query)
+  //     .then((data) => {
+  //       console.log(data);
+  //       // setArticles(data.allArticles);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       // setError('Przepraszamy, nie mogliśmy pobrać artykułów');
+  //     });
+  // }, []);
 
   return (
-    <ViewWrapper as="form" onSubmit={handleSubmitProduct}>
-      <Title>Dodawanie produktu</Title>
-      <Title>Wybierz z dostępnych </Title>
-      {availableProducts.map((product) => (
-        <p>
-          {product.name} {product.fdcId}
-        </p>
-      ))}
+    <Wrapper as="form" onSubmit={handleSubmitProduct}>
+      <Title>Ile witamin ma dany produkt?</Title>
+      {/* <FormFieldSelect
+        label="Posiłek"
+        name="meals"
+        id="meals"
+        type="select"
+        // onChange={handleInputChange}
+      ></FormFieldSelect> */}
       <FormField
         label="Nazwa produktu"
         name="name"
@@ -81,8 +95,10 @@ const AddProduct = () => {
         id="amount"
         onChange={handleInputChange}
       ></FormField>
-      <Button type="submit">Dodaj produkt</Button>
-    </ViewWrapper>
+      <Button type="submit" isBig>
+        Dodaj produkt
+      </Button>
+    </Wrapper>
   );
 };
 

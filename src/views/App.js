@@ -7,11 +7,14 @@ import { Wrapper } from './App.styles';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
+import UserDashboard from 'components/templates/UserDashboard/UserDashboard';
 import AddProduct from 'components/organisms/AddProduct/AddProduct';
 import Admin from 'views/Admin';
 import ProductsList from 'components/organisms/ProductsList/ProductsList';
 // import Dashboard from 'views/Dashboard';
 import ProductsProvider from 'providers/ProductsProvider';
+import Dashboard from 'components/templates/Dashboard/Dashboard';
+import Navigation from 'components/organisms/Navigation/Navigation';
 
 export const products = [
   {
@@ -35,7 +38,7 @@ const Root = () => {
           <ProductsProvider>
             <Wrapper>
               <Routes>
-                <Route path="/add-product" element={<AddProduct />}></Route>
+                <Route path="/add-product" element={<UserDashboard />}></Route>
                 <Route path="/add-product-admin" element={<Admin />}></Route>
                 <Route
                   path="/"
