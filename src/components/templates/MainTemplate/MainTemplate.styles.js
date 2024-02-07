@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import f1280 from 'assets/f1280.png';
+import f2 from 'assets/f2.jpg';
 
 export const Header = styled.div`
   width: 100%;
-  position: relative;
-  padding: 50px;
+  padding: 2vw;
   color: ${({ theme }) => theme.colors.white};
   text-shadow: 1px 1px 5px black;
   font-size: ${({ theme }) => theme.fontSize.xl};
@@ -14,7 +13,9 @@ export const Header = styled.div`
     font-size: ${({ theme }) => theme.fontSize.xxl};
     text-shadow: 1px 1px 5px black;
     margin: 0;
-    line-height: 0.75;
+  }
+  p {
+    margin: 0;
   }
 `;
 
@@ -23,9 +24,11 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   /* max-height: 200vh; */
   /* overflow-y: scroll; */
+  position: relative;
   margin: 0;
   padding: 0;
-  background-image: url(${f1280});
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
+  background-image: url(${f2});
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
