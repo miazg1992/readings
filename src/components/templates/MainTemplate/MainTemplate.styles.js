@@ -7,6 +7,7 @@ export const Header = styled.div`
   color: ${({ theme }) => theme.colors.white};
   text-shadow: 1px 1px 5px black;
   font-size: ${({ theme }) => theme.fontSize.xl};
+  margin-bottom: 5vh;
 
   h1 {
     /* color: ${({ theme }) => theme.colors.white}; */

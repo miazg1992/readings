@@ -8,13 +8,8 @@ import {
 const Navigation = () => {
   return (
     <Wrapper>
-      <StyledLink to="/">Dashboard</StyledLink>
-      <StyledLink to="/add-product">Dodaj produkt</StyledLink>
-      <StyledLink to="/add-product-admin">
-        Dodaj produkt do bazy Admin
-      </StyledLink>
-      <StyledLink to="/">Settings</StyledLink>
-      <StyledLink to="/">Logout</StyledLink>
+      <StyledLink to="/">Home</StyledLink>
+      <StyledLink to="/add-product-admin">Panel Administratora</StyledLink>
     </Wrapper>
   );
 };

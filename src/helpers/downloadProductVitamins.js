@@ -3,28 +3,7 @@ import React from 'react';
 import { ProductsContext } from 'providers/ProductsProvider';
 import { useContext } from 'react';
 
-const data = [
-  { name: 'Pomarańcza', fdcId: '2344665' },
-  { name: 'Truskawki', fdcId: 'sss' },
-  { name: 'Pomidor', fdcId: 'sss' },
-  { name: 'Pietruszka', fdcId: 'sss' },
-  { name: 'Siemię lniane', fdcId: '2339341' },
-  { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Chleb bezglutenowy', fdcId: '174099' },
-  { name: 'Ziemniaki gotowane', fdcId: '2344879' },
-  { name: 'Jabłko', fdcId: '2124902' },
-  { name: 'Marchew, surowa', fdcId: '2345173' },
-  // marchew 170393
-  { name: 'Mleko ryżowe', fdcId: '2340793' },
-  { name: 'Mleko sojowe', fdcId: '2340784' },
-];
-
-export const downloadVitaminsByProductId = (fdcId) => {
+export const downloadFoodNutrientsByProductId = (fdcId) => {
   const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
   // const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=kale`;
   console.log(fdcId);
@@ -40,7 +19,7 @@ export const downloadVitaminsByProductId = (fdcId) => {
       }
     })
     .then((json) => {
-      const products = json;
+      const product = json;
       //   products.foods.forEach((product, index) => {
       //     // console.log(product.foodNutrients.length, index);
       //     // console.log(product.description);
@@ -48,10 +27,11 @@ export const downloadVitaminsByProductId = (fdcId) => {
       //     // const opis = description.includes == 'raw' ? 'surowy' : 'inny';
       //     console.log(product);
       //   });
-      console.log(products.foodNutrients);
-      console.log(products);
-      return products;
+      console.log(product.foodNutrients);
+      console.log(product);
+      return product;
     })
+
     //wykonuje gdy rozstrzygnięcie - odrzucona
     .catch((err) => console.log(err));
 };

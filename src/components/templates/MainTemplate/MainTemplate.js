@@ -17,7 +17,7 @@ const MainTemplate = ({ children }) => {
           <h1>Kalkulator Witamin</h1>
           <p>Zadbaj o swoje zdrowie już dziś</p>
         </Header>
-        {/* <Navigation /> */}
+        <Navigation />
         {children}
       </Wrapper>
     </>

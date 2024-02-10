@@ -45,6 +45,8 @@ export const useForm = (initialValues) => {
   };
 
   const handleClearForm = (initialValues) => {
+    console.log('czyszczenie');
+    console.log(initialValues);
     dispatch({ type: actionTypes.clearValues }, initialValues);
   };
 

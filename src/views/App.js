@@ -16,18 +16,7 @@ import ProductsProvider from 'providers/ProductsProvider';
 import Dashboard from 'components/templates/Dashboard/Dashboard';
 import Navigation from 'components/organisms/Navigation/Navigation';
 
-export const products = [
-  {
-    name: 'marchewka',
-    amount: 50,
-    id: 1,
-  },
-  {
-    name: 'groch',
-    amount: 20,
-    id: 3,
-  },
-];
+export const products = [];
 
 const Root = () => {
   return (
@@ -38,12 +27,8 @@ const Root = () => {
           <ProductsProvider>
             <Wrapper>
               <Routes>
-                <Route path="/add-product" element={<UserDashboard />}></Route>
                 <Route path="/add-product-admin" element={<Admin />}></Route>
-                <Route
-                  path="/"
-                  element={<ProductsList products={products} />}
-                ></Route>
+                <Route path="/" element={<UserDashboard />}></Route>
               </Routes>
             </Wrapper>
           </ProductsProvider>
