@@ -23,11 +23,86 @@ const data = [
   { name: 'Mleko sojowe', fdcId: '2340784' },
 ];
 
+const initialFoodNutrientsTotal = [
+  {
+    name: 'Kaloryczność',
+    id: 1008,
+    amount: 0,
+    unitName: 'kcal',
+    demand: 2000,
+  },
+  {
+    name: 'Białko',
+    id: 1003,
+    amount: 0,
+    unitName: 'g',
+    demand: 1000,
+  },
+
+  {
+    name: 'Tłuszcze',
+    id: 1004,
+    amount: 0,
+    unitName: 'g',
+    demand: 1000,
+  },
+  {
+    name: 'Węglowodany',
+    id: 1005,
+    amount: 0,
+    unitName: 'g',
+    demand: 1000,
+  },
+  {
+    name: 'Cukry ',
+    id: 2000,
+    amount: 0,
+    unitName: 'g',
+    demand: 1000,
+  },
+  {
+    name: 'Witamina C',
+    id: 1162,
+    amount: 0,
+    unitName: 'mg',
+    demand: 1000,
+  },
+  {
+    name: 'Witamina E',
+    id: 1109,
+    amount: 0,
+    unitName: 'mg',
+    demand: 1000,
+  },
+  {
+    name: 'Witamina B1 (Tiamina)',
+    id: 1165,
+    amount: 0,
+    unitName: 'mg',
+    demand: 1000,
+  },
+  {
+    name: 'Witamina B2 (Ryboflawina)',
+    id: 1166,
+    amount: 0,
+    unitName: 'mg',
+    demand: 1000,
+  },
+  {
+    name: 'Cynk',
+    id: 1095,
+    amount: 0,
+    unitName: 'mg',
+    demand: 1000,
+  },
+];
+
 export const ProductsContext = React.createContext({
   products: [],
   availableProducts: [],
   foundProducts: [],
-  foodNutrientsTotal: [],
+  foodNutrientsTotal: initialFoodNutrientsTotal,
+  productsFromAPI: [],
   handleAddProduct: () => {},
   deleteProduct: () => {},
   handleAddProductToAvailableProducts: () => {},
@@ -64,20 +139,9 @@ const ProductsProvider = ({ children }) => {
   ]);
   const [foundProducts, setFoundProducts] = useState([]);
   const [productsFromAPI, setProductsFromAPI] = useState([]);
-  const [foodNutrientsTotal, setFoodNutrientsTotal] = useState([
-    {
-      name: 'Witamina C',
-      id: 1162,
-      amount: 0,
-      demand: 1000,
-    },
-    {
-      name: 'Kaloryczność',
-      id: 1008,
-      amount: 0,
-      demand: 2000,
-    },
-  ]);
+  const [foodNutrientsTotal, setFoodNutrientsTotal] = useState(
+    initialFoodNutrientsTotal,
+  );
 
   const deleteProduct = (name) => {
     const filteredProducts = products.filter(
@@ -150,7 +214,7 @@ const ProductsProvider = ({ children }) => {
     setAvailableProducts([newProduct, ...availableProducts]);
   };
 
-  const handleAddProductsFromAPI = (product, fdcId) => {
+  const handleAddProductsFromAPI = (product, fdcId, amount = '1') => {
     const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
     fetch(url)
       .then((response) => {
@@ -162,16 +226,21 @@ const ProductsProvider = ({ children }) => {
       })
       .then((json) => {
         const product = json;
+        const arr = [...json.foodNutrients];
+
         const newProduct = {
           fdcId: json.fdcId,
+          amount: amount,
           foodNutrients: json.foodNutrients,
+          // ...json.foodNutrients,
         };
         console.log(newProduct, 'dodawany produkt');
+        handleFoodNutrientsTotal(product);
         setProductsFromAPI([product, ...productsFromAPI]);
       })
       .catch((err) => console.log(err));
   };
-  const handleFoodNutrientsTotal = () => {
+  const handleFoodNutrientsTotal = (productInfo = { foodNutrients: [] }) => {
     // products.map((product) => {
     //   productsFromAPI.find((productFromAPI) =>
     //     productFromAPI.fdcId === product.fdcId);
@@ -180,6 +249,7 @@ const ProductsProvider = ({ children }) => {
     //   )}
     // )
     console.log('obliczenia witamin');
+    console.log(productInfo, 'productInfo');
     // foodNutrientsTotal.map((foodNutrient) => {
     //   // const products = productsFromAPI.filter(
     //   //   (product) => product.foodNutrients.id === foodNutrient.id,
@@ -189,20 +259,61 @@ const ProductsProvider = ({ children }) => {
     //   console.log(products, 'handlerTotal');
     //   return products;
     // });
-    setFoodNutrientsTotal([
-      {
-        name: 'Witamina C',
-        id: 1162,
-        amount: 55,
-        demand: 1000,
-      },
-      {
-        name: 'Kaloryczność',
-        id: 1008,
-        amount: 88,
-        demand: 2000,
-      },
-    ]);
+    const noweWitaminy = foodNutrientsTotal.map((foodNutrientTotal) => {
+      let { name, id, amount, unitName, demand } = foodNutrientTotal;
+
+      for (const productNutrient of productInfo.foodNutrients) {
+        if (id === productNutrient.nutrient.id) {
+          console.log('Pasuje witamina', name);
+          console.log(productNutrient.amount, 'Ilość');
+          console.log(productNutrient.nutrient.unitName, 'Jednostki');
+          let counter = (amount += productNutrient.amount);
+          amount = counter;
+
+          const vitamin = {
+            name,
+            id,
+            amount: counter,
+            unitName,
+            demand,
+          };
+          return vitamin;
+          console.log(vitamin);
+        }
+        return [];
+      }
+    });
+
+    console.log(noweWitaminy, 'nowe witaminy');
+
+    // productsFromAPI.map((product) => {
+    //   // const sk = product.foodNutrients.find(
+    //   //   (foodNutrient) => foodNutrient.nutrient.id === foodNutrient.id,
+    //   // );
+    //   // console.log(sk, 'SK');
+
+    //   for (const food of product.foodNutrients) {
+    //     // console.log(food, 'food');
+    //     // console.log(food.nutrient, 'foodNutrient');
+    //     if (food.nutrient.id === id) {
+    //       console.log('Pasuje witamina', name);
+    //       console.log(food.amount, 'Ilość');
+    //       console.log(food.nutrient.unitName, 'Jednostki');
+    //     }
+    //   }
+
+    // if (product.foodNutrients) {
+    //   if (product.foodNutrients.nutrient.id === id) {
+    //     console.log(
+    //       product.foodNutrients.nutrient,
+    //       'metoda kalkulująca witaminę',
+    //     );
+    //     const obliczenie = product.food;
+    //     console.log(product.amount);
+    //     return product.amount;
+    //   }
+    // }
+    setFoodNutrientsTotal(noweWitaminy);
   };
   return (
     <ProductsContext.Provider

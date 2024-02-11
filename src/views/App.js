@@ -13,7 +13,6 @@ import Admin from 'views/Admin';
 import ProductsList from 'components/organisms/ProductsList/ProductsList';
 // import Dashboard from 'views/Dashboard';
 import ProductsProvider from 'providers/ProductsProvider';
-import Dashboard from 'components/templates/Dashboard/Dashboard';
 import Navigation from 'components/organisms/Navigation/Navigation';
 
 export const products = [];

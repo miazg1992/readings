@@ -47,11 +47,9 @@ const AddProduct = () => {
 
   useEffect(() => {
     const length = products.length;
-    console.log('zmieniła się lista produktów, trzeba pobierać');
     if (length > 0) {
       const fdcId = products[0].fdcId;
       const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
-      console.log(url);
       fetch(url)
         .then((response) => {
           if (response.status !== 200) {
