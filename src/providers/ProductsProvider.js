@@ -215,6 +215,7 @@ const ProductsProvider = ({ children }) => {
   };
 
   const handleAddProductsFromAPI = (product, fdcId, amount = '1') => {
+    console.log(product, fdcId, amount);
     const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
     fetch(url)
       .then((response) => {
@@ -248,7 +249,6 @@ const ProductsProvider = ({ children }) => {
     //     return productFromAPI
     //   )}
     // )
-    console.log('obliczenia witamin');
     console.log(productInfo, 'productInfo');
     // foodNutrientsTotal.map((foodNutrient) => {
     //   // const products = productsFromAPI.filter(
@@ -261,27 +261,30 @@ const ProductsProvider = ({ children }) => {
     // });
     const noweWitaminy = foodNutrientsTotal.map((foodNutrientTotal) => {
       let { name, id, amount, unitName, demand } = foodNutrientTotal;
+      let element = { ...foodNutrientTotal };
+      console.log(element, 'Element');
 
       for (const productNutrient of productInfo.foodNutrients) {
         if (id === productNutrient.nutrient.id) {
-          console.log('Pasuje witamina', name);
-          console.log(productNutrient.amount, 'Ilość');
-          console.log(productNutrient.nutrient.unitName, 'Jednostki');
+          // console.log('Pasuje witamina', name);
+          // console.log(productNutrient.amount, 'Ilość');
+          // console.log(productNutrient.nutrient.unitName, 'Jednostki');
           let counter = (amount += productNutrient.amount);
           amount = counter;
 
-          const vitamin = {
-            name,
-            id,
+          element = {
+            ...foodNutrientTotal,
             amount: counter,
-            unitName,
-            demand,
           };
-          return vitamin;
-          console.log(vitamin);
+          console.log(element, 'z ifa');
+          return element;
+          // element = [...foodNutrientsTotal, newfoodNutrientTotal];
+          // console.log(element, 'tabela');
+          // return element;
         }
-        return [];
       }
+
+      return element;
     });
 
     console.log(noweWitaminy, 'nowe witaminy');
@@ -337,3 +340,78 @@ const ProductsProvider = ({ children }) => {
 };
 
 export default ProductsProvider;
+
+// const handleFoodNutrientsTotal = (productInfo = { foodNutrients: [] }) => {
+//   // products.map((product) => {
+//   //   productsFromAPI.find((productFromAPI) =>
+//   //     productFromAPI.fdcId === product.fdcId);
+//   //     console.log("Zgadza się ID, trzeba sumować")
+//   //     return productFromAPI
+//   //   )}
+//   // )
+//   console.log('obliczenia witamin');
+//   console.log(productInfo, 'productInfo');
+//   // foodNutrientsTotal.map((foodNutrient) => {
+//   //   // const products = productsFromAPI.filter(
+//   //   //   (product) => product.foodNutrients.id === foodNutrient.id,
+//   //   // );
+//   //   // productsFromAPI.map((product) => product.foodNutrients
+//   //   )
+//   //   console.log(products, 'handlerTotal');
+//   //   return products;
+//   // });
+//   const noweWitaminy = foodNutrientsTotal.map((foodNutrientTotal) => {
+//     let { name, id, amount, unitName, demand } = foodNutrientTotal;
+//     const element = [...foodNutrientTotal];
+//     console.log(element);
+
+//     for (const productNutrient of productInfo.foodNutrients) {
+//       if (id === productNutrient.nutrient.id) {
+//         console.log('Pasuje witamina', name);
+//         console.log(productNutrient.amount, 'Ilość');
+//         console.log(productNutrient.nutrient.unitName, 'Jednostki');
+//         let counter = (amount += productNutrient.amount);
+//         amount = counter;
+
+//         const newfoodNutrientTotal = {
+//           ...foodNutrientTotal,
+//           amount: counter,
+//         };
+//         element = [...foodNutrientsTotal, newfoodNutrientTotal];
+//         console.log(element, 'tabela');
+//         return element;
+//       }
+//     }
+//   });
+
+//   console.log(noweWitaminy, 'nowe witaminy');
+
+//   // productsFromAPI.map((product) => {
+//   //   // const sk = product.foodNutrients.find(
+//   //   //   (foodNutrient) => foodNutrient.nutrient.id === foodNutrient.id,
+//   //   // );
+//   //   // console.log(sk, 'SK');
+
+//   //   for (const food of product.foodNutrients) {
+//   //     // console.log(food, 'food');
+//   //     // console.log(food.nutrient, 'foodNutrient');
+//   //     if (food.nutrient.id === id) {
+//   //       console.log('Pasuje witamina', name);
+//   //       console.log(food.amount, 'Ilość');
+//   //       console.log(food.nutrient.unitName, 'Jednostki');
+//   //     }
+//   //   }
+
+//   // if (product.foodNutrients) {
+//   //   if (product.foodNutrients.nutrient.id === id) {
+//   //     console.log(
+//   //       product.foodNutrients.nutrient,
+//   //       'metoda kalkulująca witaminę',
+//   //     );
+//   //     const obliczenie = product.food;
+//   //     console.log(product.amount);
+//   //     return product.amount;
+//   //   }
+//   // }
+//   setFoodNutrientsTotal(noweWitaminy);
+// };
