@@ -6,7 +6,7 @@ import { Wrapper } from './AddProductAdmin.styles';
 import { useForm } from 'hooks/useForm';
 import { ProductsContext } from 'providers/ProductsProvider';
 import { downloadVitaminsByProductName } from 'helpers/downloadProductVitamins';
-import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
+// import { Wrapper } from 'components/molecules/Wrapper/Wrapper';
 
 const initialFormState = {
   name: '',
@@ -53,7 +53,7 @@ const AddProductAdmin = ({}) => {
     // handleAddProductToAvailableProducts(formValues);
   };
   return (
-    <ViewWrapper as="form" onSubmit={handleSubmitProduct}>
+    <Wrapper as="form" onSubmit={handleSubmitProduct}>
       <Title>Dodawanie produktu do bazy</Title>
       <FormField
         label="Nazwa produktu"
@@ -63,7 +63,7 @@ const AddProductAdmin = ({}) => {
       ></FormField>
 
       <Button type="submit">Wyszukaj produkt w bazie</Button>
-    </ViewWrapper>
+    </Wrapper>
   );
 };
 

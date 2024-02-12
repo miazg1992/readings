@@ -5,7 +5,7 @@ import { StyledList } from '../ProductsList/ProductsList.styles';
 import ProductsListItem from 'components/molecules/ProductsListItem/ProductsListItem.js';
 import { ProductsContext } from 'providers/ProductsProvider';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
-import FoodNutrient from 'components/molecules/FoodNutrient/FoodNutrient';
+import FoodNutrientItem from 'components/molecules/FoodNutrientItem/FoodNutrientItem';
 
 const FoodNutrientsList = () => {
   const { productsFromAPI, foodNutrientsTotal, handleFoodNutrientsTotal } =
@@ -26,7 +26,10 @@ const FoodNutrientsList = () => {
           </>
         ))} */}
         {foodNutrientsTotal.map((foodNutrient) => (
-          <FoodNutrient foodNutrient={foodNutrient}></FoodNutrient>
+          <FoodNutrientItem
+            key={foodNutrient.id}
+            foodNutrient={foodNutrient}
+          ></FoodNutrientItem>
         ))}
       </StyledList>
     </ViewWrapper>

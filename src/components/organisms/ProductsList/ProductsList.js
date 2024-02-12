@@ -12,9 +12,13 @@ const ProductsList = () => {
     <ViewWrapper>
       <Title>Lista Produktów</Title>
       <StyledList>
-        {products.map(({ name, amount, id }) => (
-          <ProductsListItem key={id} name={name} amount={amount} id={id} />
-        ))}
+        {products.length > 0 ? (
+          products.map(({ name, amount, id }) => (
+            <ProductsListItem key={id} name={name} amount={amount} id={id} />
+          ))
+        ) : (
+          <p> Dodaj produkt, by poznać jego wartość odżywczą </p>
+        )}
       </StyledList>
     </ViewWrapper>
   );

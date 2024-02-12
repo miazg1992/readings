@@ -1,7 +1,10 @@
 import { ProductsContext } from 'providers/ProductsProvider';
 import { useContext, useEffect } from 'react';
+import { FoodNutrientProgress } from './FoodNutrientItem.styles';
 
-const FoodNutrient = ({ foodNutrient: { name, amount, id, unitName } }) => {
+const FoodNutrientItem = ({
+  foodNutrient: { name, amount, id, unitName, demand },
+}) => {
   const { productsFromAPI, products } = useContext(ProductsContext);
 
   // useEffect(() => {
@@ -20,11 +23,13 @@ const FoodNutrient = ({ foodNutrient: { name, amount, id, unitName } }) => {
   // }, [productsFromAPI]);
 
   return (
-    <p>
-      {/* Witamina z tabeli {id} {name} {amount} */}
-      {name} {amount} {unitName}
-    </p>
+    <>
+      <p>
+        {name} {amount} {unitName} {`${(amount / demand) * 100}%`}
+      </p>
+      <FoodNutrientProgress value={amount} max={demand}></FoodNutrientProgress>
+    </>
   );
 };
 
-export default FoodNutrient;
+export default FoodNutrientItem;
