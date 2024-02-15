@@ -49,6 +49,7 @@ const AddProduct = () => {
     const length = products.length;
     if (length > 0) {
       const fdcId = products[0].fdcId;
+      const amount = products[0].amount;
       const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
       console.log(url);
 
@@ -62,21 +63,41 @@ const AddProduct = () => {
         })
         .then((json) => {
           const product = json;
-          handleAddProductsFromAPI(product, fdcId);
+          handleAddProductsFromAPI(product, fdcId, amount);
           return product;
         })
         .catch((err) => console.log(err));
     }
   }, [products]);
 
+  const validationName = () => {
+    const name = formValues.name.toString().toLowerCase();
+    return name;
+  };
+
+  const validationAmount = () => {
+    let amount;
+    if (formValues.amount) {
+      amount = parseInt(formValues.amount);
+      if (isNaN(amount)) {
+        console.log('nan');
+        amount = 100;
+      }
+    } else {
+      amount = 100;
+    }
+    return amount;
+  };
+
   const handleSubmitProduct = (e) => {
     e.preventDefault();
     if (formValues.name) {
-      const name = formValues.name.toString().toLowerCase();
+      const name = validationName();
+      const amount = validationAmount();
       const product = findProductInAvailableProducts(name);
       if (product) {
         const { fdcId } = product;
-        handleAddProduct(formValues, fdcId);
+        handleAddProduct({ name, amount }, fdcId);
         handleClearForm(initialFormState);
       } else {
         handleThrowError(
@@ -110,7 +131,7 @@ const AddProduct = () => {
         value={formValues.name}
       ></FormField>
       <FormField
-        label="Ilość"
+        label="Ilość [g]"
         name="amount"
         id="amount"
         onChange={handleInputChange}

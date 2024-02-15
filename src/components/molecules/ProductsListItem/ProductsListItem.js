@@ -3,7 +3,7 @@ import React from 'react';
 const ProductsListItem = ({ name, amount, id }) => {
   return (
     <p>
-      {name} {amount} {id}
+      Nazwa produktu: {name} {amount} [g] {id}
     </p>
   );
 };

@@ -21,11 +21,12 @@ const FoodNutrientItem = ({
   //     return product;
   //   });
   // }, [productsFromAPI]);
+  const demandPercent = ((amount / demand) * 100).toFixed(2);
 
   return (
     <>
       <p>
-        {name} {amount} {unitName} {`${(amount / demand) * 100}%`}
+        {name} {amount} {unitName} {demandPercent}%
       </p>
       <FoodNutrientProgress value={amount} max={demand}></FoodNutrientProgress>
     </>

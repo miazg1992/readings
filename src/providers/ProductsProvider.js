@@ -13,7 +13,6 @@ const data = [
   { name: 'Cytryna', fdcId: 'sss' },
   { name: 'Cytryna', fdcId: 'sss' },
   { name: 'Cytryna', fdcId: 'sss' },
-  { name: 'Cytryna', fdcId: 'sss' },
   { name: 'Chleb bezglutenowy', fdcId: '174099' },
   { name: 'Ziemniaki gotowane', fdcId: '2344879' },
   { name: 'Jabłko', fdcId: '2124902' },
@@ -29,6 +28,24 @@ const initialAvailableProducts = [
     nameEN: 'milk',
     namePL: 'mleko',
     fdcId: '2340794',
+  },
+  {
+    description: 'niby opis marchewka',
+    nameEN: 'carrot, raw',
+    namePL: 'marchew',
+    fdcId: '2345173',
+  },
+  {
+    description: 'niby opis mleka',
+    nameEN: 'milk',
+    namePL: 'siemię lniane',
+    fdcId: '2339341',
+  },
+  {
+    description: 'niby opis mleka',
+    nameEN: 'milk',
+    namePL: 'ziemniaki',
+    fdcId: '2344879',
   },
   {
     description: 'niby opis chleb',
@@ -47,6 +64,49 @@ const initialAvailableProducts = [
     nameEN: 'pomarańcz',
     namePL: 'pomarańcz',
     fdcId: '2344665',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'brokuł',
+    fdcId: '2345151',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'słonecznik',
+    fdcId: '2343060',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'kapusta',
+    fdcId: '2346373',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'pieczarki',
+    fdcId: '1926654',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'grzyby',
+    fdcId: '2345313',
+  },
+
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'soczewica',
+    fdcId: '2342898',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'otręby',
+    fdcId: '168872',
   },
 ];
 
@@ -155,6 +215,7 @@ const ProductsProvider = ({ children }) => {
   };
 
   const handleAddProduct = (values, id) => {
+    console.log(values, id, 'addProduct');
     const newProduct = {
       name: values.name,
       amount: values.amount,
@@ -166,6 +227,7 @@ const ProductsProvider = ({ children }) => {
   const handleFoundProducts = (name) => {
     const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z&query=${name}`;
     console.log(url);
+    console.log('pobieranie', name);
     fetch(url)
       .then((response) => {
         if (response.status !== 200) {
@@ -176,6 +238,7 @@ const ProductsProvider = ({ children }) => {
       })
       .then((json) => {
         const products = json.foods;
+        console.log(products);
         setFoundProducts(products, ...foundProducts);
         return products.foods;
       })
@@ -192,8 +255,10 @@ const ProductsProvider = ({ children }) => {
     setAvailableProducts([newProduct, ...availableProducts]);
   };
 
-  const handleAddProductsFromAPI = (product, fdcId, amount = '1') => {
+  const handleAddProductsFromAPI = (product, fdcId, amount) => {
     const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
+
+    console.log(amount, 'ilość');
     fetch(url)
       .then((response) => {
         if (response.status !== 200) {
@@ -211,21 +276,25 @@ const ProductsProvider = ({ children }) => {
           amount: amount,
           foodNutrients: json.foodNutrients,
         };
-        handleFoodNutrientsTotal(product);
+        handleFoodNutrientsTotal(product, amount);
         setProductsFromAPI([product, ...productsFromAPI]);
       })
       .catch((err) => console.log(err));
   };
-  const handleFoodNutrientsTotal = (productInfo = { foodNutrients: [] }) => {
+  const handleFoodNutrientsTotal = (
+    productInfo = { foodNutrients: [] },
+    amountFood,
+  ) => {
     const noweWitaminy = foodNutrientsTotal.map((foodNutrientTotal) => {
       let { id, amount } = foodNutrientTotal;
       let element = { ...foodNutrientTotal };
 
       for (const productNutrient of productInfo.foodNutrients) {
         if (id === productNutrient.nutrient.id) {
-          let counter = (amount += productNutrient.amount);
-          amount = counter;
-
+          amount += productNutrient.amount * amountFood * 0.01;
+          console.log(amount, 'amount');
+          let counter = amount;
+          console.log(counter, 'counter');
           element = {
             ...foodNutrientTotal,
             amount: counter,
