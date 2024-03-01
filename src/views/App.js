@@ -14,6 +14,8 @@ import ProductsList from 'components/organisms/ProductsList/ProductsList';
 // import Dashboard from 'views/Dashboard';
 import ProductsProvider from 'providers/ProductsProvider';
 import Navigation from 'components/organisms/Navigation/Navigation';
+import DropdownCombobox from 'components/molecules/DropdownCombobox/DropdownCombobox';
+import ComboBoxExample from 'components/molecules/Downshift/Downshift';
 
 export const products = [];
 
@@ -28,6 +30,7 @@ const Root = () => {
               <Routes>
                 <Route path="/add-product-admin" element={<Admin />}></Route>
                 <Route path="/" element={<UserDashboard />}></Route>
+                <Route path="/test1" element={<ComboBoxExample />}></Route>
               </Routes>
             </Wrapper>
           </ProductsProvider>

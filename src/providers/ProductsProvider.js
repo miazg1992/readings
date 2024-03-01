@@ -22,6 +22,57 @@ const data = [
   { name: 'Mleko sojowe', fdcId: '2340784' },
 ];
 
+// const initialAvailableProducts = [
+//   {
+//     description: 'jabłko opis',
+//     nameEN: 'jabłko',
+//     value: 'jabłko',
+//     fdcId: '2124902',
+//   },
+//   {
+//     description: 'pomarańcz',
+//     nameEN: 'pomarańcz',
+//     value: 'pomarańcz',
+//     fdcId: '2344665',
+//   },
+//   {
+//     description: 'brokuł',
+//     nameEN: 'brokuł',
+//     value: 'brokuł',
+//     fdcId: '2345151',
+//   },
+//   {
+//     description: 'brokuł',
+//     nameEN: 'brokuł',
+//     value: 'słonecznik',
+//     fdcId: '2343060',
+//   },
+//   {
+//     description: 'brokuł',
+//     nameEN: 'brokuł',
+//     value: 'kapusta',
+//     fdcId: '2346373',
+//   },
+
+//   {
+//     description: 'brokuł',
+//     nameEN: 'brokuł',
+//     value: 'otręby',
+//     fdcId: '168872',
+//   },
+//   {
+//     description: 'brokuł',
+//     nameEN: 'brokuł',
+//     value: 'łosoś',
+//     fdcId: '2341705',
+//   },
+//   {
+//     description: 'brokuł',
+//     nameEN: 'brokuł',
+//     value: 'Witamina D',
+//     fdcId: '28825963',
+//   },
+// ];
 const initialAvailableProducts = [
   {
     description: 'niby opis mleka',
@@ -86,12 +137,6 @@ const initialAvailableProducts = [
   {
     description: 'brokuł',
     nameEN: 'brokuł',
-    namePL: 'pieczarki',
-    fdcId: '1926654',
-  },
-  {
-    description: 'brokuł',
-    nameEN: 'brokuł',
     namePL: 'grzyby',
     fdcId: '2345313',
   },
@@ -107,6 +152,18 @@ const initialAvailableProducts = [
     nameEN: 'brokuł',
     namePL: 'otręby',
     fdcId: '168872',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'łosoś',
+    fdcId: '2341705',
+  },
+  {
+    description: 'brokuł',
+    nameEN: 'brokuł',
+    namePL: 'Witamina D',
+    fdcId: '28825963',
   },
 ];
 
@@ -175,6 +232,37 @@ const initialFoodNutrientsTotal = [
     unitName: 'mg',
     demand: 1.4,
   },
+  {
+    name: 'Witamina B3 (Niacyna)',
+    id: 1167,
+    amount: 0,
+    unitName: 'mg',
+    demand: 14,
+  },
+  {
+    name: 'Witamina B12 ',
+    id: 1178,
+    amount: 0,
+    unitName: 'mikrog',
+    demand: 24,
+  },
+
+  {
+    name: 'Witamina D',
+    id: 1114,
+    amount: 0,
+    unitName: 'mikro g',
+    demand: 50,
+  },
+
+  {
+    name: 'Witamina K',
+    id: 1185,
+    amount: 0,
+    unitName: 'mikrog',
+    demand: 55,
+  },
+
   {
     name: 'Cynk',
     id: 1095,
@@ -270,6 +358,7 @@ const ProductsProvider = ({ children }) => {
       .then((json) => {
         const product = json;
         const arr = [...json.foodNutrients];
+        console.log(arr);
 
         const newProduct = {
           fdcId: json.fdcId,

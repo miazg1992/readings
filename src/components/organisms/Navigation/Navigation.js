@@ -10,6 +10,7 @@ const Navigation = () => {
     <Wrapper>
       <StyledLink to="/">Home</StyledLink>
       <StyledLink to="/add-product-admin">Panel Administratora</StyledLink>
+      <StyledLink to="/test">Downshift</StyledLink>
     </Wrapper>
   );
 };

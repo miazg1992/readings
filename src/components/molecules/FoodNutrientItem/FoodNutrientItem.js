@@ -28,7 +28,11 @@ const FoodNutrientItem = ({
       <p>
         {name} {amount} {unitName} {demandPercent}%
       </p>
-      <FoodNutrientProgress value={amount} max={demand}></FoodNutrientProgress>
+      <FoodNutrientProgress
+        demandPercent={demandPercent}
+        value={amount}
+        max={demand}
+      ></FoodNutrientProgress>
     </>
   );
 };

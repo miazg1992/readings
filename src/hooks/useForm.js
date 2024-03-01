@@ -1,7 +1,9 @@
+import { AxiosHeaders } from 'axios';
 import { useReducer } from 'react';
 
 const actionTypes = {
   inputChange: 'INPUT CHANGE',
+  inputComboBoxChange: 'INPUT COMBOBOX CHANGE',
   clearValues: 'CLEAR VALUES',
   consentToggle: 'CONSENT TOGGLE',
   throwError: 'THROW ERROR',
@@ -10,6 +12,11 @@ const actionTypes = {
 const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.inputChange:
+      return {
+        ...state,
+        [action.field]: action.value,
+      };
+    case actionTypes.inputComboBoxChange:
       return {
         ...state,
         [action.field]: action.value,
@@ -23,7 +30,7 @@ const reducer = (state, action) => {
         ...state,
         consent: !state.consent,
       };
-    case 'THROW ERROR':
+    case actionTypes.throwError:
       return {
         ...state,
         error: [action.errorValue],
@@ -38,15 +45,21 @@ export const useForm = (initialValues) => {
 
   const handleInputChange = (e) => {
     dispatch({
-      type: 'INPUT CHANGE',
+      type: actionTypes.inputChange,
       field: e.target.name,
       value: e.target.value,
     });
   };
+  const handleComboboxChange = (value) => {
+    console.log('useForm cbb');
+    dispatch({
+      type: actionTypes.inputComboBoxChange,
+      field: 'name',
+      value: value,
+    });
+  };
 
   const handleClearForm = (initialValues) => {
-    console.log('czyszczenie');
-    console.log(initialValues);
     dispatch({ type: actionTypes.clearValues, initialValues });
     console.log(formValues);
   };
@@ -62,6 +75,7 @@ export const useForm = (initialValues) => {
   return {
     formValues,
     handleInputChange,
+    handleComboboxChange,
     handleClearForm,
     handleThrowError,
     handleToggleConsent,
