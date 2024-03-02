@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import { users as usersData } from 'data/users';
 import { downloadVitaminsByProductId } from 'helpers/downloadProductVitamins';
+import { useProducts } from 'hooks/useProducts';
 
 const data = [
   { name: 'Pomarańcza', fdcId: '2344665' },
@@ -295,6 +296,8 @@ const ProductsProvider = ({ children }) => {
     initialFoodNutrientsTotal,
   );
 
+  const { findProductById } = useProducts;
+
   const deleteProduct = (name) => {
     const filteredProducts = products.filter(
       (product) => product.name !== name,
@@ -343,7 +346,7 @@ const ProductsProvider = ({ children }) => {
     setAvailableProducts([newProduct, ...availableProducts]);
   };
 
-  const handleAddProductsFromAPI = (product, fdcId, amount) => {
+  const handleAddProductsFromAPI = async (product, fdcId, amount) => {
     const url = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=z3wgSSS9b0SU2IegGYbDKhBjnsUbSQUroSZblG6z`;
 
     console.log(amount, 'ilość');

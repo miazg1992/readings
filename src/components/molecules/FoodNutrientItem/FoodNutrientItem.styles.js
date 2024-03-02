@@ -7,10 +7,10 @@ export const FoodNutrientProgress = styled.progress`
   /* appearance: none; */
   /* -webkit-appearance: none; */
 
-  background: ${({ theme, demandPercent }) => {
-    if (demandPercent > 90) return theme.colors.success;
-    if (demandPercent > 30) return theme.colors.warning;
-    if (demandPercent > 0) return '#ff0000';
+  background: ${({ theme, partofdemand }) => {
+    if (partofdemand > 90) return theme.colors.success;
+    if (partofdemand > 30) return theme.colors.warning;
+    if (partofdemand > 0) return '#ff0000';
     return theme.colors.grey;
   }};
 
@@ -19,10 +19,10 @@ export const FoodNutrientProgress = styled.progress`
     border-radius: 5px;
   }
   &::-webkit-progress-value {
-    background: ${({ theme, demandPercent }) => {
-      if (demandPercent > 90) return theme.colors.success;
-      if (demandPercent > 30) return theme.colors.warning;
-      if (demandPercent > 0) return '#ff0000';
+    background: ${({ theme, partofdemand }) => {
+      if (partofdemand > 90) return theme.colors.success;
+      if (partofdemand > 30) return theme.colors.warning;
+      if (partofdemand > 0) return '#ff0000';
       return theme.colors.grey;
     }};
     border-radius: 5px;
@@ -32,10 +32,10 @@ export const FoodNutrientProgress = styled.progress`
     border-radius: 5px;
   }
   &::-moz-progress-value {
-    background: ${({ theme, demandPercent }) => {
-      if (demandPercent > 90) return theme.colors.success;
-      if (demandPercent > 30) return theme.colors.warning;
-      if (demandPercent > 0) return '#ff0000';
+    background: ${({ theme, partofdemand }) => {
+      if (partofdemand > 90) return theme.colors.success;
+      if (partofdemand > 30) return theme.colors.warning;
+      if (partofdemand > 0) return '#ff0000';
       return theme.colors.grey;
     }};
     border-radius: 5px;

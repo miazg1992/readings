@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 export const SearchWrapper = styled.div`
   position: relative;
-  background-color: #fff;
 `;
 
 export const SearchResults = styled.ul`
@@ -14,16 +13,15 @@ export const SearchResults = styled.ul`
   border-radius: 15px;
   max-height: 400px;
   overflow-y: scroll;
-  background-color: ${({ theme }) => theme.colors.white};
   padding: 10px;
 
-  visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+  visibility: ${({ isvisible }) => (isvisible ? 'visible' : 'hidden')};
 `;
 export const SearchResultsItem = styled.li`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.darkGrey};
-  background-color: ${({ theme, highlighted }) =>
-    highlighted ? theme.colors.lightPurple : theme.colors.white};
+  background-color: ${({ theme, ishighlighted }) =>
+    ishighlighted ? theme.colors.lightPurple : theme.colors.white};
   width: 100%;
   padding: 20px 5px;
 
