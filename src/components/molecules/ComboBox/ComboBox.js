@@ -19,6 +19,7 @@ const ComboBox = ({ availableProducts, getInputValue }) => {
         product.namePL.toLowerCase().includes(lowerCasedInputValue),
       );
       setItems(matchingProducts);
+      console.log(matchingProducts, 'matching');
       return matchingProducts;
     } else return [];
   };

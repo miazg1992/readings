@@ -385,7 +385,7 @@ const ProductsProvider = ({ children }) => {
         if (id === productNutrient.nutrient.id) {
           amount += productNutrient.amount * amountFood * 0.01;
           console.log(amount, 'amount');
-          let counter = amount;
+          let counter = amount.toFixed(2, 10);
           console.log(counter, 'counter');
           element = {
             ...foodNutrientTotal,
