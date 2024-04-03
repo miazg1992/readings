@@ -5,17 +5,14 @@ import {
   Header,
   Wrapper,
 } from 'components/templates/MainTemplate/MainTemplate.styles';
-import { Input } from 'components/atoms/Input/Input';
-// import bg from './assets/bg.svg';
-import ww from 'assets/ww.svg';
 
 const MainTemplate = ({ children }) => {
   return (
     <>
       <Wrapper>
         <Header>
-          <h1>Kalkulator Witamin</h1>
-          <p>Zadbaj o swoje zdrowie już dziś</p>
+          <h1>Nowa aplikacja</h1>
+          <p>Każdego dnia uczysz się więcej</p>
         </Header>
         <Navigation />
         {children}

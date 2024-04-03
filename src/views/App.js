@@ -8,14 +8,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import UserDashboard from 'components/templates/UserDashboard/UserDashboard';
-import AddProduct from 'components/organisms/AddProduct/AddProduct';
-import Admin from 'views/Admin';
-import ProductsList from 'components/organisms/ProductsList/ProductsList';
-// import Dashboard from 'views/Dashboard';
-import ProductsProvider from 'providers/ProductsProvider';
-import Navigation from 'components/organisms/Navigation/Navigation';
-import DropdownCombobox from 'components/molecules/DropdownCombobox/DropdownCombobox';
-import ComboBoxExample from 'components/molecules/Downshift/Downshift';
 
 export const products = [];
 
@@ -25,15 +17,11 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
-          <ProductsProvider>
-            <Wrapper>
-              <Routes>
-                <Route path="/add-product-admin" element={<Admin />}></Route>
-                <Route path="/" element={<UserDashboard />}></Route>
-                <Route path="/test1" element={<ComboBoxExample />}></Route>
-              </Routes>
-            </Wrapper>
-          </ProductsProvider>
+          <Wrapper>
+            <Routes>
+              <Route path="/" element={<UserDashboard />}></Route>
+            </Routes>
+          </Wrapper>
         </MainTemplate>
       </ThemeProvider>
     </Router>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import f2 from 'assets/f2.jpg';
+import bgS from 'assets/moon_640.jpg';
+import bgL from 'assets/moon_1280.jpg';
 
 export const Header = styled.div`
   width: 100%;
@@ -10,7 +11,6 @@ export const Header = styled.div`
   margin-bottom: 5vh;
 
   h1 {
-    /* color: ${({ theme }) => theme.colors.white}; */
     font-size: ${({ theme }) => theme.fontSize.xxl};
     text-shadow: 1px 1px 5px black;
     margin: 0;
@@ -23,14 +23,15 @@ export const Header = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  /* max-height: 200vh; */
-  /* overflow-y: scroll; */
   position: relative;
   margin: 0;
   padding: 0;
-  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
-  background-image: url(${f2});
+  background-image: url(${bgS});
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+
+  @media (min-width: 641px) {
+    background-image: url(${bgL});
+  }
 `;

@@ -7,10 +7,5 @@ export const Wrapper = styled.div`
   margin: 0 30px 30px 30px;
   flex-direction: column;
   align-items: center;
-`;
-
-export const ResultWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  flex-wrap: nowrap;
+  color: white;
 `;
