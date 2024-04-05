@@ -5,17 +5,18 @@ import {
   Header,
   Wrapper,
 } from 'components/templates/MainTemplate/MainTemplate.styles';
+import TasksProvider from 'providers/TasksProvider';
 
 const MainTemplate = ({ children }) => {
   return (
     <>
       <Wrapper>
         <Header>
-          <h1>Nowa aplikacja</h1>
-          <p>Każdego dnia uczysz się więcej</p>
+          <h1>Czytankowo</h1>
+          <p>Nauka czytania dla najmłodszych</p>
         </Header>
         <Navigation />
-        {children}
+        <TasksProvider>{children}</TasksProvider>
       </Wrapper>
     </>
   );

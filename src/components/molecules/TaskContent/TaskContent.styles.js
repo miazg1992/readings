@@ -1,11 +1,7 @@
 import styled from 'styled-components';
-
 export const Wrapper = styled.div`
+  background-color: #fff;
   width: 100%;
-  height: 60vh;
-  margin: 0 30px 30px 30px;
+  height: 50%;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  color: white;
 `;

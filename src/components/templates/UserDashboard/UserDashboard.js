@@ -1,9 +1,15 @@
 import React from 'react';
-
-import { ResultWrapper, Wrapper } from './UserDashboard.styles';
+import Task from 'components/templates/Task/Task';
+import Monster from 'components/molecules/Monster/Monster';
+import { Wrapper } from './UserDashboard.styles';
 
 const UserDashboard = () => {
-  return <Wrapper>Hej ... </Wrapper>;
+  return (
+    <Wrapper>
+      <Task />
+      <Monster />
+    </Wrapper>
+  );
 };
 
 export default UserDashboard;

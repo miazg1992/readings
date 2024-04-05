@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import bgS from 'assets/moon_640.jpg';
-import bgL from 'assets/moon_1280.jpg';
+import bgcS from 'assets/bgc_640.png';
+import bgcL from 'assets/bgc_1280.png';
 
 export const Header = styled.div`
   width: 100%;
@@ -26,12 +26,13 @@ export const Wrapper = styled.div`
   position: relative;
   margin: 0;
   padding: 0;
-  background-image: url(${bgS});
+  background-color: black;
+  /* background-image: url(${bgcS}); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 
   @media (min-width: 641px) {
-    background-image: url(${bgL});
+    /* background-image: url(${bgcL}); */
   }
 `;
