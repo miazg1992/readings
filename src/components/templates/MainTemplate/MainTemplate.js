@@ -15,7 +15,7 @@ const MainTemplate = ({ children }) => {
           <h1>Czytankowo</h1>
           <p>Nauka czytania dla najmłodszych</p>
         </Header>
-        <Navigation />
+        {/* <Navigation /> */}
         <TasksProvider>{children}</TasksProvider>
       </Wrapper>
     </>

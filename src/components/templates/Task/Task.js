@@ -4,8 +4,9 @@ import { TaskContent } from 'components/molecules/TaskContent/TaskContent';
 import DnD from 'components/organisms/DnD/DnD';
 import { Wrapper } from './Task.styles';
 import { TasksContext } from 'providers/TasksProvider';
+import { Button } from 'components/atoms/Button/Button';
 const Task = () => {
-  const { tasks, activeTask, generateTask } = useContext(TasksContext);
+  const { tasks, activeTask, generateActiveTask } = useContext(TasksContext);
 
   return (
     <Wrapper>

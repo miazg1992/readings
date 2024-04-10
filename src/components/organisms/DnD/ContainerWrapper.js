@@ -6,7 +6,7 @@ import ItemCard from './ItemCard/ItemCard';
 import { SyllableWrapper } from 'components/molecules/SyllableWrapper';
 
 import { Wrapper } from './ContainerWrapper.styles';
-const ContainerWrapper = ({ container, createItem, items = [], isFirst }) => {
+const ContainerWrapper = ({ container, items = [], isFirst }) => {
   const [editMode, setEditMode] = useState(false);
   const {
     setNodeRef,
@@ -39,7 +39,7 @@ const ContainerWrapper = ({ container, createItem, items = [], isFirst }) => {
     justifySelf: 'center',
     padding: '10px',
     width: '100%',
-    height: '100px',
+    minHeight: '80px',
     position: 'absolute',
     button: '0px',
     left: '0',
@@ -57,17 +57,8 @@ const ContainerWrapper = ({ container, createItem, items = [], isFirst }) => {
     opacity: '0.4',
   };
 
-  if (isDragging) {
-    return <div ref={setNodeRef} style={styleDragging}></div>;
-  }
-
   return (
-    <SyllableWrapper
-      ref={setNodeRef}
-      style={isFirst ? styleIsFirst : style}
-      {...attributes}
-      {...listeners}
-    >
+    <SyllableWrapper ref={setNodeRef} style={isFirst ? styleIsFirst : style}>
       {/*item container */}
       <SortableContext items={items}>
         {items.map((item) => {

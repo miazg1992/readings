@@ -22,9 +22,10 @@ export const theme = {
   },
   fontSize: {
     xxl: '50px',
-    xl: '24px',
-    l: '17px',
-    m: '14px',
-    s: '11px',
+    xl: '40px',
+    l: '30px',
+    m: '24px',
+    s: '18px',
+    xs: '14px',
   },
 };

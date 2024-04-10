@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { Button } from 'components/atoms/Button/Button';
 // import NextIcon from 'components/atoms/Icons/CorrectIcon/NextIcon/NextIcon';
 import ContainerWrapper from './ContainerWrapper';
 import {
@@ -13,18 +14,48 @@ import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { createPortal } from 'react-dom';
 import ItemCard from './ItemCard/ItemCard';
 import { Wrapper } from './DnD.styles';
+import { TasksContext } from 'providers/TasksProvider';
 
 const DnD = ({ activeTask }) => {
+  const firstContainerId = 'TODO';
   const [items, setItems] = useState([]);
-  const [containers, setContainers] = useState([]);
+  const [containers, setContainers] = useState([
+    {
+      id: firstContainerId,
+      title: `todo`,
+    },
+  ]);
   const containersId = useMemo(
     () => containers.map((container) => container.id),
     [containers],
   );
-  const firstContainerId = 'TODO';
   // const itemsId = useMemo(() => items.map((item) => item.id), [items]);
   const [activeContainer, setActiveContainer] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
+  const { result, updateResult } = useContext(TasksContext);
+
+  const checkAnswer = () => {
+    let isCorrect = false;
+    items.map((item) => {
+      console.log(item.content);
+      console.log(item.containerId);
+      containers.forEach((container) => {
+        if (container.id === firstContainerId) return;
+        if (container.id === item.containerId) {
+          console.log('kontenery ID się zgadzają');
+          if (container.title === item.content) {
+            console.log('OK', container.title, item.content);
+            isCorrect = true;
+          }
+          // } else {
+          //   console.log('ZLe', container.title, item.content);
+          //   updateResult(isCorrect);
+          // }
+        }
+      });
+    });
+    updateResult(isCorrect);
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -36,17 +67,18 @@ const DnD = ({ activeTask }) => {
 
   const generateContainers = (syllables) => {
     if (syllables) {
+      const newContainerToDo = {
+        id: firstContainerId,
+        title: `todo`,
+      };
       const newConatiners = syllables.map((syllable, index) => {
-        let containerId = '';
-        if (index === 0) containerId = firstContainerId;
         const newContainer = {
-          id: containerId || uuidv4(),
-          title: `title ${syllable}${containers.length + 1}`,
+          id: uuidv4(),
+          title: `${syllable}`,
         };
         return newContainer;
       });
-
-      setContainers(newConatiners);
+      setContainers([newContainerToDo, ...newConatiners]);
     } else return;
   };
 
@@ -74,31 +106,6 @@ const DnD = ({ activeTask }) => {
   useEffect(() => {
     initTask(activeTask);
   }, [activeTask]);
-  // const deleteContainer = (id) => {
-  //   const filteredContainers = containers.filter(
-  //     (container) => container.id !== id,
-  //   );
-  //   setContainers(filteredContainers);
-
-  //   const newItems = items.filter((item) => item.containerId !== id);
-  //   setItems(newItems);
-  // };
-  // const updateContainer = (id, e) => {
-  //   const title = e.target.value;
-  //   const newContainers = containers.map((container) => {
-  //     if (container.id !== id) return container;
-  //     return { ...container, title };
-  //   });
-  //   setContainers(newContainers);
-  // };
-  const createItem = (containerId) => {
-    const newItem = {
-      id: uuidv4(),
-      containerId: containerId,
-      content: `zadanie ${items.length + 1}`,
-    };
-    setItems([...items, newItem]);
-  };
 
   const updateItem = (e, id) => {
     const content = e.target.value;
@@ -125,11 +132,6 @@ const DnD = ({ activeTask }) => {
     const { active, over } = e;
     if (!over) return;
 
-    const activeContainerId = active.id;
-    const overContainerId = over.id;
-
-    if (activeContainerId === overContainerId) return;
-
     if (active.data.current.type === 'item') {
       setItems((items) => {
         const activeItemIndex = items.findIndex(
@@ -138,20 +140,19 @@ const DnD = ({ activeTask }) => {
         const overItemIndex = items.findIndex((item) => item.id === over.id);
         return arrayMove(items, activeItemIndex, overItemIndex);
       });
-    } else {
-      setContainers((container) => {
-        const activeContainerIndex = containers.findIndex(
-          (container) => container.id === activeContainerId,
-        );
-        const overContainerIndex = containers.findIndex(
-          (container) => container.id === overContainerId,
-        );
-
-        return arrayMove(containers, activeContainerIndex, overContainerIndex);
-      });
     }
   };
-
+  //if the container is not empty, add the old item to the TODO container
+  const prepareContainer = (id) => {
+    const filtredItems = items.filter((item) => item.containerId === id);
+    if (filtredItems.length > 0) {
+      const updateItems = filtredItems.map((item) => {
+        item.containerId = firstContainerId;
+        return item;
+      });
+      setItems(updateItems);
+    }
+  };
   const handleDragOver = (e) => {
     const { active, over } = e;
     if (!over) return;
@@ -180,9 +181,10 @@ const DnD = ({ activeTask }) => {
     }
     //dragging a Item over another Container
     if (isActiveAItem && isOverAContainer) {
+      console.log(active, over, 'act i over');
       setItems((items) => {
         const activeIndex = items.findIndex((item) => item.id === activeId);
-
+        prepareContainer(overId);
         items[activeIndex].containerId = overId;
 
         return arrayMove(items, activeIndex, activeIndex);
@@ -202,12 +204,13 @@ const DnD = ({ activeTask }) => {
             <ContainerWrapper
               key={container.id}
               container={container}
-              createItem={createItem}
               items={items.filter((item) => item.containerId === container.id)}
               isFirst={index === 0 ? true : false}
             />
           ))}
         </SortableContext>
+        <Button onClick={checkAnswer}> Sprawdź</Button>
+        <div> {result ? 'Brawo udało Ci się!' : 'rozwiąż zadanie'}</div>
       </Wrapper>
       {createPortal(
         <DragOverlay>
@@ -215,7 +218,6 @@ const DnD = ({ activeTask }) => {
             <ContainerWrapper
               key={activeContainer.id}
               container={activeContainer}
-              createItem={createItem}
               items={items.filter(
                 (item) => item.containerId === activeContainer.id,
               )}

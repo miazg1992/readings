@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 60%;
-  height: 100%;
-  padding: 1vw;
+  width: 90%;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
+  background-color: #fff;
+  position: relative;
 
-  img {
-    width: 200px;
-    height: 200px;
-    display: block;
-    margin: 0 auto;
+  @media (min-width: 768px) {
+    width: 60%;
+    min-height: 60vh;
   }
 `;
