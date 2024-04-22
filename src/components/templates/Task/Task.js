@@ -6,7 +6,7 @@ import { Wrapper } from './Task.styles';
 import { TasksContext } from 'providers/TasksProvider';
 import { Button } from 'components/atoms/Button/Button';
 const Task = () => {
-  const { tasks, activeTask, generateActiveTask } = useContext(TasksContext);
+  const { tasks, activeTask } = useContext(TasksContext);
 
   return (
     <Wrapper>

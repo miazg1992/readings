@@ -39,4 +39,14 @@ export const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 55;
+  }
 `;

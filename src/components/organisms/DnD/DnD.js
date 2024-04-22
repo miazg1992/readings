@@ -13,8 +13,9 @@ import {
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { createPortal } from 'react-dom';
 import ItemCard from './ItemCard/ItemCard';
-import { Wrapper } from './DnD.styles';
+import { DnDWrapper, Wrapper } from './DnD.styles';
 import { TasksContext } from 'providers/TasksProvider';
+import { includes } from 'lodash';
 
 const DnD = ({ activeTask }) => {
   const firstContainerId = 'TODO';
@@ -32,30 +33,99 @@ const DnD = ({ activeTask }) => {
   // const itemsId = useMemo(() => items.map((item) => item.id), [items]);
   const [activeContainer, setActiveContainer] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
-  const { result, updateResult } = useContext(TasksContext);
 
+  const [isSolved, setIsSolved] = useState(false);
+
+  const { result, changeTaskStatus, updateActiveIndex } =
+    useContext(TasksContext);
+
+  const checkIsCompleted = () => {
+    console.log('sprawdzam czy uzupełnione');
+    const checkedContainers = containers.slice(1);
+    console.log(checkedContainers, 'checkedContainers');
+
+    const containersCompleted = checkedContainers.map((container) => {
+      const filtredItem = items.filter((item) => {
+        if (item.containerId === container.id) return item;
+      });
+      if (filtredItem.length > 0) return true;
+      else return false;
+    });
+    if (containersCompleted.includes(false)) {
+      // setIsCompleted(false);
+      return;
+    } else {
+      // setIsCompleted(true);
+      checkAnswer();
+      setIsSolved(true);
+    }
+  };
   const checkAnswer = () => {
     let isCorrect = false;
-    items.map((item) => {
-      console.log(item.content);
-      console.log(item.containerId);
-      containers.forEach((container) => {
-        if (container.id === firstContainerId) return;
-        if (container.id === item.containerId) {
-          console.log('kontenery ID się zgadzają');
-          if (container.title === item.content) {
-            console.log('OK', container.title, item.content);
-            isCorrect = true;
-          }
-          // } else {
-          //   console.log('ZLe', container.title, item.content);
-          //   updateResult(isCorrect);
-          // }
+    console.log(items, 'items chA');
+    console.log(containers, 'conntainers chA');
+    const checkedContainers = containers.slice(1);
+
+    const answers = checkedContainers.map((container) => {
+      let isCorrectItem;
+
+      const filtredItems = items.filter((item) => {
+        if (item.containerId === container.id) {
+          if (item.content === container.title) {
+            return item;
+          } else return;
         }
       });
+      console.log(filtredItems, 'filtredItems');
+      if (filtredItems.length > 0) {
+        isCorrectItem = true;
+      } else isCorrectItem = false;
+      console.log(isCorrectItem, 'isCorrectItem');
+      return isCorrectItem;
     });
-    updateResult(isCorrect);
+    console.log(answers, 'answers');
+    const containIncorrectAnswer = answers.includes(false);
+    isCorrect = !containIncorrectAnswer;
+    console.log(containIncorrectAnswer, 'containIncorrectAnswer');
+    console.log(isCorrect, 'isCorrect');
+    changeTaskStatus(isCorrect);
   };
+
+  // const checkAnswer = () => {
+  //   let isCorrect = false;
+  //   let error = null;
+  //   console.log('sprawdzam odp');
+
+  //   const test = containers.map((container) => {
+  //     const y = items.indexOf((item) => item.containerId === container.id);
+  //     console.log(y, 'y');
+  //     return y;
+  //   });
+  //   console.log(test, 'test');
+  //   changeTaskStatus(isCorrect);
+  // };
+
+  //   const checkAnswer = () => {
+  //   let isCorrect = false;
+
+  //   console.log('sprawdzam odp');
+  //   items.map((item) => {
+  //     const isCorrectItems = containers.map((container) => {
+  //       let isCorrectItem = false;
+  //       if (container.id === firstContainerId) return;
+  //       if (container.id === item.containerId) {
+  //         if (container.title === item.content) {
+  //           isCorrectItem = true;
+  //         }
+  //         console.log(isCorrectItem, 'w forEach');
+  //         return isCorrectItem;
+  //       }
+  //     });
+  //     console.log(isCorrectItems, 'niby tablica');
+  //     return isCorrect;
+  //   });
+  //   changeTaskStatus(isCorrect);
+  // };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -100,6 +170,7 @@ const DnD = ({ activeTask }) => {
       const { syllables } = activeTask;
       generateContainers(syllables);
       generateItems(syllables);
+      setIsSolved(false);
     }
   };
 
@@ -141,6 +212,7 @@ const DnD = ({ activeTask }) => {
         return arrayMove(items, activeItemIndex, overItemIndex);
       });
     }
+    checkIsCompleted();
   };
   //if the container is not empty, add the old item to the TODO container
   const prepareContainer = (id) => {
@@ -155,6 +227,7 @@ const DnD = ({ activeTask }) => {
   };
   const handleDragOver = (e) => {
     const { active, over } = e;
+    console.log(active, over);
     if (!over) return;
 
     const activeId = active.id;
@@ -168,20 +241,24 @@ const DnD = ({ activeTask }) => {
 
     if (activeId === overId) return;
     //dragging a Item over another Item
+    console.log(active, over, 'nadinnym Itemem');
+    console.log(items, 'items');
+    console.log(active, 'active');
+    console.log(over, 'over');
     if (isActiveAItem && isOverAItem) {
-      setItems((items) => {
-        const activeIndex = items.findIndex((item) => item.id === activeId);
-        const overIndex = items.findIndex((item) => item.id === overId);
+      return;
+      // setItems((items) => {
+      //   const activeIndex = items.findIndex((item) => item.id === activeId);
+      //   const overIndex = items.findIndex((item) => item.id === overId);
 
-        if (items[activeIndex].containerId !== items[overIndex].containerId) {
-          items[activeIndex].containerId = items[overIndex].containerId;
-        }
-        return arrayMove(items, activeIndex, overIndex);
-      });
+      //   if (items[activeIndex].containerId !== items[overIndex].containerId) {
+      //     items[activeIndex].containerId = items[overIndex].containerId;
+      //   }
+      //   return arrayMove(items, activeIndex, overIndex);
+      // });
     }
     //dragging a Item over another Container
     if (isActiveAItem && isOverAContainer) {
-      console.log(active, over, 'act i over');
       setItems((items) => {
         const activeIndex = items.findIndex((item) => item.id === activeId);
         prepareContainer(overId);
@@ -199,18 +276,26 @@ const DnD = ({ activeTask }) => {
       onDragOver={handleDragOver}
     >
       <Wrapper>
-        <SortableContext items={containersId}>
-          {containers.map((container, index) => (
-            <ContainerWrapper
-              key={container.id}
-              container={container}
-              items={items.filter((item) => item.containerId === container.id)}
-              isFirst={index === 0 ? true : false}
-            />
-          ))}
-        </SortableContext>
-        <Button onClick={checkAnswer}> Sprawdź</Button>
-        <div> {result ? 'Brawo udało Ci się!' : 'rozwiąż zadanie'}</div>
+        <DnDWrapper>
+          <SortableContext items={containersId}>
+            {containers.map((container, index) => (
+              <ContainerWrapper
+                key={container.id}
+                container={container}
+                items={items.filter(
+                  (item) => item.containerId === container.id,
+                )}
+                isFirst={index === 0 ? true : false}
+              />
+            ))}
+          </SortableContext>
+        </DnDWrapper>
+        {isSolved ? (
+          <Button onClick={() => initTask(activeTask)}> Ponownie</Button>
+        ) : null}
+        {isSolved ? (
+          <Button onClick={updateActiveIndex}> Następne</Button>
+        ) : null}
       </Wrapper>
       {createPortal(
         <DragOverlay>

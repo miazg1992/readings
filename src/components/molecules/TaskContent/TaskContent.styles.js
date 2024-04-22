@@ -15,7 +15,7 @@ export const ImgWrapper = styled.div`
   width: 100%;
   min-height: 25vh;
   position: relative;
-  background-color: pink;
+  background-color: green;
 
   img {
     position: absolute;

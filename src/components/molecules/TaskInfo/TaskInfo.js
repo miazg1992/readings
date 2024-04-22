@@ -1,22 +1,27 @@
-import { Images, Results, Wrapper } from './TaskInfo.styles';
+import { Images, Result, Results, Wrapper } from './TaskInfo.styles';
 import question from 'assets/img/question.png';
-import monster1 from 'assets/img/monster1_640.png';
+import monster1 from 'assets/img/monster-blue.png';
 import { Button } from 'components/atoms/Button/Button';
 import { useContext } from 'react';
 import { TasksContext } from 'providers/TasksProvider';
+import { TaskStatus } from 'components/molecules/TaskStatus/TaskStatus';
 const TaskInfo = () => {
-  const { checkAnswer, results } = useContext(TasksContext);
+  const { checkAnswer, results, activeIndex } = useContext(TasksContext);
   return (
     <Wrapper>
       <Results>
         {results.map((result, index) => (
-          <div key={index}></div>
+          <Result
+            key={index}
+            $isCorrect={result === 'CORRECTANSWER' ? true : false}
+          ></Result>
         ))}
       </Results>
-      <Images>
-        <img src={question} alt="pytanie" />
-        <img src={monster1} alt="uroczy potwór" />
-      </Images>
+      <TaskStatus taskStatus={results[activeIndex]}>
+        {/* <img src={monster} alt="uroczy potwór" /> */}
+
+        <img src={question} alt="" />
+      </TaskStatus>
     </Wrapper>
   );
 };
