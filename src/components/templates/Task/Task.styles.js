@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  background-color: ${({ theme }) => theme.colors.whiteOpacity};
+  border: solid 1px ${({ theme }) => theme.colors.lightGrey};
 
   @media (min-width: 768px) {
     width: 60%;

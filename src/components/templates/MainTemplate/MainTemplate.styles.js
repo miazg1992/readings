@@ -3,10 +3,14 @@ import bgcS from 'assets/bgc_640.png';
 import bgcL from 'assets/bgc_1280.png';
 
 export const Header = styled.div`
+  position: relative;
   width: 100%;
   padding: 20px;
+  /* color: linear-gradient(to right, red, orange, yellow, lime, blue, purple, fuchsia) */
   color: ${({ theme }) => theme.colors.white};
   text-shadow: 1px 1px 5px ${({ theme }) => theme.colors.black};
+  z-index: 1;
+  padding-bottom: 50px;
 
   h1 {
     font-size: ${({ theme }) => theme.fontSize.l};
@@ -39,14 +43,4 @@ export const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    z-index: 55;
-  }
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   min-height: 20vh;
-  background-color: orange;
+  /* background-color: orange; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

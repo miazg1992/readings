@@ -32,7 +32,7 @@ export const TaskStatus = ({ taskStatus }) => {
       }} */}
       <Images>
         <img
-          src={`${process.env.PUBLIC_URL}assets/img/${imgName}-monster.png`}
+          src={`${process.env.PUBLIC_URL}assets/img/${imgName}-monster.gif`}
         ></img>
         <img src={`${process.env.PUBLIC_URL}assets/img/${imgName}.png`}></img>
       </Images>

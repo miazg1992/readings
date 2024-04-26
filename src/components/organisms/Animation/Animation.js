@@ -82,7 +82,7 @@ const Animation = () => {
               enable: true,
               area: 800,
             },
-            value: 200,
+            value: 100,
           },
           opacity: {
             value: 0.5,
@@ -91,7 +91,7 @@ const Animation = () => {
             type: 'circle',
           },
           size: {
-            value: { min: 1, max: 5 },
+            value: { min: 3, max: 5 },
           },
         },
         detectRetina: true,

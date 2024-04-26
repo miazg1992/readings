@@ -9,6 +9,27 @@ export const taskStatus = {
 
 const data = [
   {
+    word: 'rakieta',
+    syllables: ['ra', 'kie', 'ta'],
+    img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
+    sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
+    status: taskStatus.toDo,
+  },
+  {
+    word: 'morze',
+    syllables: ['mo', 'rze'],
+    img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
+    sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
+    status: taskStatus.toDo,
+  },
+  {
+    word: 'balony',
+    syllables: ['ba', 'lo', 'ny'],
+    img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
+    sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
+    status: taskStatus.toDo,
+  },
+  {
     word: 'fala',
     syllables: ['fa', 'la'],
     img: `${process.env.PUBLIC_URL}assets/data/img/fala.jpg`,
