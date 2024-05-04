@@ -2,10 +2,8 @@ import styled from 'styled-components';
 import { Button } from 'components/atoms/Button/Button';
 export const Wrapper = styled.div`
   width: 100%;
-  min-height: 25vh;
   padding: 2vw;
   display: flex;
-  background-color: transparent;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
@@ -13,28 +11,29 @@ export const Wrapper = styled.div`
 
   @media (min-width: 576px) {
     flex-direction: row;
-    min-height: 25vh;
   }
 
   ${Button} {
     position: absolute;
+    width: 50px;
     right: 0;
-    top: 0px;
+    bottom: 0px;
     &:first-of-type {
       right: 0;
+      bottom: 38px;
     }
   }
 `;
 
 export const DnDWrapper = styled.div`
-  width: 75%;
-  min-height: 30vh;
-  background-color: pink;
+  width: 95%;
+  min-height: 25vh;
   display: flex;
   justify-content: center;
   position: relative;
+  padding-top: 20px;
 
-  @media (orientation: portrait) {
-    min-height: 20vh;
+  @media (min-width: 576px) {
+    width: 80%;
   }
 `;

@@ -10,6 +10,8 @@ const ItemCard = ({ item }) => {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
+  console.log(item, 'item');
+
   const {
     setNodeRef,
     attributes,
@@ -32,9 +34,9 @@ const ItemCard = ({ item }) => {
 
   if (isDragging) {
     return (
-      <Wrapper ref={setNodeRef} style={style}>
+      <SyllableWrapper ref={setNodeRef} style={style}>
         {' '}
-      </Wrapper>
+      </SyllableWrapper>
     );
   }
   // const handlePlaySound = () => {
@@ -42,9 +44,13 @@ const ItemCard = ({ item }) => {
   //   sound.play();
   // };
 
-  const handlePlaySound = debounce(() => {
-    const sound = new Audio(`${process.env.PUBLIC_URL}assets/data/d.mp3`);
-    sound.play();
+  const handlePlaySound = debounce((soundName) => {
+    if (soundName) {
+      const sound = new Audio(
+        `${process.env.PUBLIC_URL}assets/data/${soundName}.mp3`,
+      );
+      sound.play();
+    } else return;
   }, 500);
 
   return (
@@ -55,7 +61,7 @@ const ItemCard = ({ item }) => {
       {...listeners}
       onMouseMove={() => setMouseIsOver(true)}
       onMouseLeave={() => setMouseIsOver(false)}
-      onMouseDown={() => handlePlaySound()}
+      onMouseDown={(content) => handlePlaySound(item.content)}
     >
       {content}
     </SyllableWrapper>

@@ -10,4 +10,5 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.colors.darkGrey};
   max-width: 200px;
   max-height: 50px;
+  cursor: pointer;
 `;

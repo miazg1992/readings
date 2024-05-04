@@ -40,9 +40,7 @@ const DnD = ({ activeTask }) => {
     useContext(TasksContext);
 
   const checkIsCompleted = () => {
-    console.log('sprawdzam czy uzupełnione');
     const checkedContainers = containers.slice(1);
-    console.log(checkedContainers, 'checkedContainers');
 
     const containersCompleted = checkedContainers.map((container) => {
       const filtredItem = items.filter((item) => {
@@ -52,18 +50,14 @@ const DnD = ({ activeTask }) => {
       else return false;
     });
     if (containersCompleted.includes(false)) {
-      // setIsCompleted(false);
       return;
     } else {
-      // setIsCompleted(true);
       checkAnswer();
       setIsSolved(true);
     }
   };
   const checkAnswer = () => {
     let isCorrect = false;
-    console.log(items, 'items chA');
-    console.log(containers, 'conntainers chA');
     const checkedContainers = containers.slice(1);
 
     const answers = checkedContainers.map((container) => {
@@ -76,56 +70,15 @@ const DnD = ({ activeTask }) => {
           } else return;
         }
       });
-      console.log(filtredItems, 'filtredItems');
       if (filtredItems.length > 0) {
         isCorrectItem = true;
       } else isCorrectItem = false;
-      console.log(isCorrectItem, 'isCorrectItem');
       return isCorrectItem;
     });
-    console.log(answers, 'answers');
     const containIncorrectAnswer = answers.includes(false);
     isCorrect = !containIncorrectAnswer;
-    console.log(containIncorrectAnswer, 'containIncorrectAnswer');
-    console.log(isCorrect, 'isCorrect');
     changeTaskStatus(isCorrect);
   };
-
-  // const checkAnswer = () => {
-  //   let isCorrect = false;
-  //   let error = null;
-  //   console.log('sprawdzam odp');
-
-  //   const test = containers.map((container) => {
-  //     const y = items.indexOf((item) => item.containerId === container.id);
-  //     console.log(y, 'y');
-  //     return y;
-  //   });
-  //   console.log(test, 'test');
-  //   changeTaskStatus(isCorrect);
-  // };
-
-  //   const checkAnswer = () => {
-  //   let isCorrect = false;
-
-  //   console.log('sprawdzam odp');
-  //   items.map((item) => {
-  //     const isCorrectItems = containers.map((container) => {
-  //       let isCorrectItem = false;
-  //       if (container.id === firstContainerId) return;
-  //       if (container.id === item.containerId) {
-  //         if (container.title === item.content) {
-  //           isCorrectItem = true;
-  //         }
-  //         console.log(isCorrectItem, 'w forEach');
-  //         return isCorrectItem;
-  //       }
-  //     });
-  //     console.log(isCorrectItems, 'niby tablica');
-  //     return isCorrect;
-  //   });
-  //   changeTaskStatus(isCorrect);
-  // };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -227,7 +180,6 @@ const DnD = ({ activeTask }) => {
   };
   const handleDragOver = (e) => {
     const { active, over } = e;
-    console.log(active, over);
     if (!over) return;
 
     const activeId = active.id;
@@ -241,10 +193,6 @@ const DnD = ({ activeTask }) => {
 
     if (activeId === overId) return;
     //dragging a Item over another Item
-    console.log(active, over, 'nadinnym Itemem');
-    console.log(items, 'items');
-    console.log(active, 'active');
-    console.log(over, 'over');
     if (isActiveAItem && isOverAItem) {
       return;
       // setItems((items) => {
@@ -291,11 +239,9 @@ const DnD = ({ activeTask }) => {
           </SortableContext>
         </DnDWrapper>
         {isSolved ? (
-          <Button onClick={() => initTask(activeTask)}> Ponownie</Button>
+          <Button onClick={() => initTask(activeTask)}> R</Button>
         ) : null}
-        {isSolved ? (
-          <Button onClick={updateActiveIndex}> Następne</Button>
-        ) : null}
+        {isSolved ? <Button onClick={updateActiveIndex}> x</Button> : null}
       </Wrapper>
       {createPortal(
         <DragOverlay>

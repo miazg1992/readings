@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const ViewWrapper = styled.div`
   margin: 25px;
-  background-color: ${({ theme }) => theme.colors.whiteOpacity};
+  /* background-color: ${({ theme }) => theme.colors.whiteOpacity}; */
+  background-color: red;
   width: 100%;
   max-width: 900px;
   padding: 40px 50px;

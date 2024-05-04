@@ -5,8 +5,8 @@ export const SyllableWrapper = styled.div`
   height: 30px;
   flex-shrink: 0;
   cursor: grab;
-  background-color: blue;
-  border: solid white 2px;
+  background-color: white;
+  border: solid 1px ${({ theme }) => theme.colors.primary};
   color: black;
   font-weight: bold;
   display: flex;

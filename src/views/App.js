@@ -7,7 +7,8 @@ import { Wrapper } from './App.styles';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
-import UserDashboard from 'components/templates/UserDashboard/UserDashboard';
+import Dashboard from 'components/templates/Dashboard/Dashboard';
+import Modal from 'components/organisms/Modal/Modal.js';
 
 export const products = [];
 
@@ -17,9 +18,10 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
+          <Modal />
           <Wrapper>
             <Routes>
-              <Route path="/" element={<UserDashboard />}></Route>
+              <Route path="/" element={<Dashboard />}></Route>
             </Routes>
           </Wrapper>
         </MainTemplate>

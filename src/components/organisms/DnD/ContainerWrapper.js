@@ -26,11 +26,7 @@ const ContainerWrapper = ({ container, items = [], isFirst }) => {
   const style = {
     transition,
     transform: CSS.Translate.toString(transform),
-    // padding: '10px',
-    // border: 'solid 2px black',
-    // margin: '10px',
-    // minWidth: '200px',
-    // height: '100px',
+    margin: '0 10px',
   };
   const styleIsFirst = {
     transition,
@@ -39,18 +35,21 @@ const ContainerWrapper = ({ container, items = [], isFirst }) => {
     justifySelf: 'center',
     padding: '10px',
     width: '100%',
-    minHeight: '80px',
+    // minHeight: '100px',
+    minHeight: '15vh',
     position: 'absolute',
     button: '0px',
     left: '0',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    cursor: 'auto',
   };
   const styleDragging = {
     transition,
     transform: CSS.Translate.toString(transform),
-    border: 'solid 2px black',
+    border: ` solid 2px ${({ theme }) => theme.colors.primary}`,
     margin: '10px',
     minWidth: '200px',
     height: '100px',

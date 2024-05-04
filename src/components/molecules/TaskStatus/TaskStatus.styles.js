@@ -10,13 +10,26 @@ export const Images = styled.div`
   justify-content: center;
   height: 25vh;
   img {
-    width: 35%;
+    align-self: flex-start;
+    width: 50%;
     height: auto;
     margin: 20px;
 
     &:nth-child(2) {
       width: 20%;
       height: auto;
+      align-self: center;
+      margin-left: -30px;
+    }
+
+    @media (min-width: 576px) {
+      width: 70%;
+    }
+    @media (min-width: 576px) and (orientation: landscape) {
+      width: 60%;
+    }
+    @media (min-width: 768px) and (orientation: landscape) {
+      width: 60%;
     }
   }
 `;

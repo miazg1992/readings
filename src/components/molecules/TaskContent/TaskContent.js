@@ -1,17 +1,19 @@
 import { useContext } from 'react';
 import { ImgWrapper, Wrapper } from './TaskContent.styles';
 import { TasksContext } from 'providers/TasksProvider';
-import TaskInfo from 'components/molecules/TaskInfo/TaskInfo';
 import { Button } from 'components/atoms/Button/Button';
+import { TaskStatus } from '../TaskStatus/TaskStatus';
 export const TaskContent = () => {
-  const { activeTask } = useContext(TasksContext);
+  const { activeIndex, activeTask, checkAnswer, results } =
+    useContext(TasksContext);
+
   return (
     <Wrapper>
       <ImgWrapper>
         {activeTask ? <img src={`${activeTask.img}`} alt="" /> : null}
       </ImgWrapper>
 
-      <TaskInfo />
+      <TaskStatus taskStatus={results[activeIndex]}></TaskStatus>
     </Wrapper>
   );
 };

@@ -8,72 +8,79 @@ export const taskStatus = {
 };
 
 const data = [
-  {
-    word: 'rakieta',
-    syllables: ['ra', 'kie', 'ta'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'morze',
-    syllables: ['mo', 'rze'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'balony',
-    syllables: ['ba', 'lo', 'ny'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'fala',
-    syllables: ['fa', 'la'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/fala.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/fala.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'mama',
-    syllables: ['ma', 'ma'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/mama.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/mama.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'tata',
-    syllables: ['ta', 'ta'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/tata.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/tata.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'lody',
-    syllables: ['lo', 'dy'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/lody.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/lody.mp3}`,
-    status: taskStatus.toDo,
-  },
-  // ma li ny lo dy bu ty au to ry ba ka wa ku ra ta ta ko ty
-  // maliny lody koty mama tata
-  // dom ryba kawa kura buty zebra
-  {
-    word: 'zebra',
-    syllables: ['ze', 'bra'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/zebra.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/zebra.mp3}`,
-    status: taskStatus.toDo,
-  },
-  {
-    word: 'koty',
-    syllables: ['ko', 'ty'],
-    img: `${process.env.PUBLIC_URL}assets/data/img/koty.jpg`,
-    sound: `${process.env.PUBLIC_URL}assets/data/koty.mp3}`,
-    status: taskStatus.toDo,
-  },
+  // {
+  //   word: 'maliny',
+  //   syllables: ['ma', 'li', 'ny'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/maliny.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/maliny.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'rakieta',
+  //   syllables: ['ra', 'kie', 'ta'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/rakieta.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/rakieta.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'morze',
+  //   syllables: ['mo', 'rze'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/morze.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/morze.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'balony',
+  //   syllables: ['ba', 'lo', 'ny'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/balony.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/balony.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'fala',
+  //   syllables: ['fa', 'la'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/fala.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/fala.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'mama',
+  //   syllables: ['ma', 'ma'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/mama.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/mama.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'tata',
+  //   syllables: ['ta', 'ta'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/tata.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/tata.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'lody',
+  //   syllables: ['lo', 'dy'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/lody.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/lody.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // // ma li ny lo dy bu ty au to ry ba ka wa ku ra ta ta ko ty
+  // // maliny lody koty mama tata
+  // // dom ryba kawa kura buty zebra
+  // {
+  //   word: 'zebra',
+  //   syllables: ['ze', 'bra'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/zebra.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/zebra.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
+  // {
+  //   word: 'koty',
+  //   syllables: ['ko', 'ty'],
+  //   img: `${process.env.PUBLIC_URL}assets/data/img/koty.jpg`,
+  //   sound: `${process.env.PUBLIC_URL}assets/data/koty.mp3}`,
+  //   status: taskStatus.toDo,
+  // },
   {
     word: 'auto',
     syllables: ['au', 'to'],
@@ -112,7 +119,7 @@ const data = [
   {
     word: 'kura',
     syllables: ['ku', 'ra'],
-    img: `${1}.jpg`,
+    img: `${process.env.PUBLIC_URL}assets/data/img/kura.jpg`,
     sound: `${process.env.PUBLIC_URL}assets/data/kura.mp3}`,
     status: taskStatus.toDo,
   },
@@ -124,7 +131,7 @@ const data = [
     status: taskStatus.toDo,
   },
 ];
-
+//maliny rakieta morze balony fala mama tata lody zebra koty auto lampa buty ryba kawa kura maliny
 export const TasksContext = React.createContext({
   tasks: [],
   activeTask: null,
@@ -174,8 +181,6 @@ const TasksProvider = ({ children }) => {
   }, [tasks]);
 
   const updateActiveIndex = () => {
-    console.log('yyyyy aktualizowanie');
-
     setActiveIndex((activeIndex) => {
       // updateResult(taskStatus.inProgress);
 
