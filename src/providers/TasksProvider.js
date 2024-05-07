@@ -7,7 +7,7 @@ export const taskStatus = {
   incorrectAnswer: 'INCORRECTANSWER',
 };
 
-const data = [
+const dataSyllables = [
   // {
   //   word: 'maliny',
   //   syllables: ['ma', 'li', 'ny'],
@@ -131,8 +131,24 @@ const data = [
     status: taskStatus.toDo,
   },
 ];
+
+const dataSentences = [
+  {
+    word: 'Dzieci robią zamek z piasku',
+    syllables: ['Dzieci', 'robią', 'zamek', 'z', 'piasku'],
+    img: `${process.env.PUBLIC_URL}assets/data/img/dzieci robią zamek.jpg`,
+    sound: `${process.env.PUBLIC_URL}assets/data/dzieci robią zamek.mp3}`,
+    status: taskStatus.toDo,
+  },
+];
+
+export const STAGE_TYPES = {
+  syllables: 'SYLLABLES',
+  sentences: 'SENTENCES',
+};
 //maliny rakieta morze balony fala mama tata lody zebra koty auto lampa buty ryba kawa kura maliny
 export const TasksContext = React.createContext({
+  stage: null,
   tasks: [],
   activeTask: null,
   results: [],
@@ -140,10 +156,12 @@ export const TasksContext = React.createContext({
   generateActiveTask: () => {},
   updateResult: () => {},
   changeTaskStatus: () => {},
+  selectStage: () => {},
   updateActiveIndex: () => {},
 });
 
 const TasksProvider = ({ children }) => {
+  const [stage, setStage] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [activeTask, setActiveTask] = useState(null);
   // const [results, setResults] = useMemo(
@@ -155,20 +173,35 @@ const TasksProvider = ({ children }) => {
   const [level, setLevel] = useState(1);
   const amountTasksInLevel = 10;
 
-  const generateActiveTask = (index) => {
-    console.log(data[index]);
-    const activeTask = data[index];
-    console.log(activeTask);
-    activeTask.status = taskStatus.inProgress;
-    setActiveTask(activeTask);
+  const selectStage = (stage) => {
+    if (stage === STAGE_TYPES.sentences) {
+      setStage(STAGE_TYPES.sentences);
+      generateTasks(dataSentences);
+    } else {
+      setStage(STAGE_TYPES.syllables);
+      generateTasks(dataSyllables);
+    }
   };
 
-  const generateTasks = () => {
+  useEffect(() => {
+    if (tasks.length > 0) {
+      generateResults();
+      generateActiveTask(activeIndex);
+    }
+  }, [tasks]);
+  const generateTasks = (data) => {
     const max = level * amountTasksInLevel;
     const min = max - amountTasksInLevel;
     const tasks = data.slice(min, max);
     setTasks(tasks);
-    // generateResults(tasks);
+    // generateActiveTask(0);
+    // generateResults();
+  };
+
+  const generateActiveTask = (index) => {
+    const activeTask = tasks[index];
+    activeTask.status = taskStatus.inProgress;
+    setActiveTask(activeTask);
   };
 
   const generateResults = () => {
@@ -176,19 +209,16 @@ const TasksProvider = ({ children }) => {
     setResults([...results]);
   };
 
-  useEffect(() => {
-    generateResults();
-  }, [tasks]);
-
   const updateActiveIndex = () => {
+    console.log(results);
     setActiveIndex((activeIndex) => {
-      // updateResult(taskStatus.inProgress);
-
       let newIndex = activeIndex;
 
-      if (activeIndex < amountTasksInLevel - 1) {
+      if (
+        activeIndex < amountTasksInLevel - 1 &&
+        activeIndex < tasks.length - 1
+      ) {
         newIndex = activeIndex + 1;
-        console.log(newIndex, activeIndex);
         generateActiveTask(newIndex);
       } else alert('koniec poziomu, gratulujemy ', level);
       return newIndex;
@@ -203,39 +233,45 @@ const TasksProvider = ({ children }) => {
 
   // const generateResults = (tasks) => {
   //   const results = tasks.map((task) => task.status);
-  //   console.log(results, 'results');
   //   setResults(results);
   // };
 
+  // const changeTaskStatus = (isCorrect) => {
+  //
+  //   if (isCorrect) {
+  //     console.log('if');
+  //     console.log(activeIndex, 'actInd');
+  //     tasks[activeIndex].status = taskStatus.correctAnswer;
+  //     setTasks([...tasks]);
+  //   } else if (isCorrect === false) {
+  //     console.log('else');
+  //     tasks[activeIndex].status = taskStatus.incorrectAnswer;
+  //     setTasks([...tasks]);
+  //   } else {
+  //     console.log('yyyy');
+  //   }
+  // };
   const changeTaskStatus = (isCorrect) => {
-    if (isCorrect === true) {
+    if (isCorrect) {
       tasks[activeIndex].status = taskStatus.correctAnswer;
+      console.log(tasks[activeIndex].status);
+      console.log(taskStatus.correctAnswer);
+      console.log(tasks, 'w change');
       setTasks([...tasks]);
-    } else if (isCorrect === false) {
+    } else {
       tasks[activeIndex].status = taskStatus.incorrectAnswer;
+      console.log(tasks[activeIndex].status);
+      console.log(taskStatus.incorrectAnswer);
       setTasks([...tasks]);
     }
   };
-  // const updateResult = (isCorrect) => {
-  //   console.log(isCorrect, 'status w updateResult');
-  //   if (isCorrect === true) console.log('ok', isCorrect);
-  //   if (isCorrect === false) console.log('zle', isCorrect);
-  //   else console.log(isCorrect);
-  //   if (isCorrect !== taskStatus.inProgress) {
-  //     updateActiveIndex();
-  //   }
-  //   setResults((results) => {
-  //     results[activeIndex] = isCorrect;
-  //     return [...results];
-  //   });
-  // };
 
   //generate first - initialization
-  useEffect(() => {
-    generateTasks();
-    activeIndex = 0;
-    generateActiveTask(activeIndex);
-  }, []);
+  // useEffect(() => {
+  //   generateTasks();
+  //   activeIndex = 0;
+  //   generateActiveTask(activeIndex);
+  // }, []);
 
   return (
     <TasksContext.Provider
@@ -245,6 +281,7 @@ const TasksProvider = ({ children }) => {
         activeIndex,
         results,
         changeTaskStatus,
+        selectStage,
         updateActiveIndex,
       }}
     >

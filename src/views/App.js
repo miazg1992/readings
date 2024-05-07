@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import Dashboard from 'components/templates/Dashboard/Dashboard';
+import Game from 'components/templates/Game/Game';
 import Modal from 'components/organisms/Modal/Modal.js';
 
 export const products = [];
@@ -22,6 +23,8 @@ const Root = () => {
           <Wrapper>
             <Routes>
               <Route path="/" element={<Dashboard />}></Route>
+              <Route path="/syllables" element={<Game />}></Route>
+              <Route path="/sentences" element={<Game />}></Route>
             </Routes>
           </Wrapper>
         </MainTemplate>

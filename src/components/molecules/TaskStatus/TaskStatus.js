@@ -20,16 +20,6 @@ export const TaskStatus = ({ taskStatus }) => {
   const imgName = createImgName();
   return (
     <Wrapper>
-      {/* {() => {
-        switch (taskStatus) {
-          case 'CORRECTANSWER':
-            return <img src={monster} alt="" />;
-          case 'INCORRECTANSWER':
-            return <img src={monster} alt="" />;
-          default:
-            return <img src={monster} alt="" />;
-        }
-      }} */}
       <Images>
         <img
           src={`${process.env.PUBLIC_URL}assets/img/${imgName}-monster.gif`}

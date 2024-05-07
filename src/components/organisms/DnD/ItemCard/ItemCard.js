@@ -10,8 +10,6 @@ const ItemCard = ({ item }) => {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-  console.log(item, 'item');
-
   const {
     setNodeRef,
     attributes,

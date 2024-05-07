@@ -1,14 +1,9 @@
 import styled from 'styled-components';
+import ViewWrapper from 'components/molecules/ViewWrapper/ViewWrapper';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(ViewWrapper)`
   width: 90%;
   min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  /* background-color: ${({ theme }) => theme.colors.whiteOpacity}; */
-  background-color: ${({ theme }) => theme.colors.primary};
-  border: 1px solid ${({ theme }) => theme.colors.primary};
 
   @media (min-width: 576px) and (orientation: landscape) {
     min-height: 80vh;

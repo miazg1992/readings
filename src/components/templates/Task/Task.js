@@ -11,7 +11,7 @@ const Task = () => {
   return (
     <Wrapper>
       <TaskContent></TaskContent>
-      
+
       <DnD activeTask={activeTask}></DnD>
     </Wrapper>
   );

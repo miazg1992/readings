@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-export const ViewWrapper = styled.div`
-  margin: 25px;
-  /* background-color: ${({ theme }) => theme.colors.whiteOpacity}; */
-  background-color: red;
-  width: 100%;
-  max-width: 900px;
-  padding: 40px 50px;
-  border-radius: 25px;
-  box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
-  text-align: center;
+const ViewWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.whiteOpacity};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
 `;
+
+export default ViewWrapper;
