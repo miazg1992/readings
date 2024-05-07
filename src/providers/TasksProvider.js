@@ -1,4 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import {
+  addToLocalStorage,
+  getFromLocalStorage,
+} from 'helpers/handleLocalStorage';
 
 export const taskStatus = {
   toDo: 'TODO',
@@ -153,6 +157,7 @@ export const TasksContext = React.createContext({
   activeTask: null,
   results: [],
   activeIndex: null,
+  loading: null,
   generateActiveTask: () => {},
   updateResult: () => {},
   changeTaskStatus: () => {},
@@ -172,16 +177,52 @@ const TasksProvider = ({ children }) => {
   let [activeIndex, setActiveIndex] = useState(0);
   const [level, setLevel] = useState(1);
   const amountTasksInLevel = 10;
+  const [loading, setLoading] = useState(true);
 
   const selectStage = (stage) => {
+    let stageName;
+    console.log(stage, 'w SelectStage');
     if (stage === STAGE_TYPES.sentences) {
       setStage(STAGE_TYPES.sentences);
-      generateTasks(dataSentences);
+      stageName = stage;
     } else {
       setStage(STAGE_TYPES.syllables);
-      generateTasks(dataSyllables);
+      stageName = stage;
     }
+    if (stageName) addToLocalStorage('stage', stageName);
+
+    // let stageInLocalStorageII = getFromLocalStorage('stage');
+    // console.log(stageInLocalStorageII, 'w storage II yyy');
   };
+  // const selectStage = (stage) => {
+  //   let stageName;
+  //   if (stage === STAGE_TYPES.sentences) {
+  //     setStage(STAGE_TYPES.sentences);
+  //     generateTasks(dataSentences);
+  //     stageName = stage;
+  //   } else {
+  //     setStage(STAGE_TYPES.syllables);
+  //     generateTasks(dataSyllables);
+  //     stageName = stage;
+  //   }
+  //   if (stageName) addToLocalStorage('stage', stageName);
+
+  //   let stageInLocalStorageII = getFromLocalStorage('stage');
+  //   console.log(stageInLocalStorageII, 'w storage II yyy');
+  // };
+
+  useEffect(() => {
+    setTasks([]);
+    let stageInLocalStorage = localStorage.getItem('stage');
+    console.log(stageInLocalStorage, 'stageInLocalStorage, po odświeżeniu');
+    if (stageInLocalStorage) selectStage(stageInLocalStorage);
+  }, []);
+
+  useEffect(() => {
+    console.log('generuję zadania bp stan', stage);
+    console.log(activeTask, 'actTask');
+    generateTasks();
+  }, [stage]);
 
   useEffect(() => {
     if (tasks.length > 0) {
@@ -189,19 +230,29 @@ const TasksProvider = ({ children }) => {
       generateActiveTask(activeIndex);
     }
   }, [tasks]);
-  const generateTasks = (data) => {
-    const max = level * amountTasksInLevel;
-    const min = max - amountTasksInLevel;
-    const tasks = data.slice(min, max);
-    setTasks(tasks);
-    // generateActiveTask(0);
-    // generateResults();
+
+  const generateTasks = () => {
+    let data;
+    console.log('generowanie zadań');
+    if (stage) {
+      console.log(stage, 'generateTasks');
+      if (stage === STAGE_TYPES.sentences) {
+        data = dataSentences;
+      } else {
+        data = dataSyllables;
+      }
+      const max = level * amountTasksInLevel;
+      const min = max - amountTasksInLevel;
+      const tasks = data.slice(min, max);
+      setTasks(tasks);
+    } else return;
   };
 
   const generateActiveTask = (index) => {
     const activeTask = tasks[index];
     activeTask.status = taskStatus.inProgress;
     setActiveTask(activeTask);
+    setLoading(false);
   };
 
   const generateResults = () => {
@@ -225,32 +276,6 @@ const TasksProvider = ({ children }) => {
     });
   };
 
-  // const generateNextTask = () => {
-  //   const activeIndex = updateActiveIndex();
-  //   generateActiveTask(activeIndex);
-  //   updateResult(taskStatus.inProgress);
-  // };
-
-  // const generateResults = (tasks) => {
-  //   const results = tasks.map((task) => task.status);
-  //   setResults(results);
-  // };
-
-  // const changeTaskStatus = (isCorrect) => {
-  //
-  //   if (isCorrect) {
-  //     console.log('if');
-  //     console.log(activeIndex, 'actInd');
-  //     tasks[activeIndex].status = taskStatus.correctAnswer;
-  //     setTasks([...tasks]);
-  //   } else if (isCorrect === false) {
-  //     console.log('else');
-  //     tasks[activeIndex].status = taskStatus.incorrectAnswer;
-  //     setTasks([...tasks]);
-  //   } else {
-  //     console.log('yyyy');
-  //   }
-  // };
   const changeTaskStatus = (isCorrect) => {
     if (isCorrect) {
       tasks[activeIndex].status = taskStatus.correctAnswer;
@@ -266,13 +291,6 @@ const TasksProvider = ({ children }) => {
     }
   };
 
-  //generate first - initialization
-  // useEffect(() => {
-  //   generateTasks();
-  //   activeIndex = 0;
-  //   generateActiveTask(activeIndex);
-  // }, []);
-
   return (
     <TasksContext.Provider
       value={{
@@ -280,6 +298,7 @@ const TasksProvider = ({ children }) => {
         activeTask,
         activeIndex,
         results,
+        loading,
         changeTaskStatus,
         selectStage,
         updateActiveIndex,

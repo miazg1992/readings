@@ -6,7 +6,6 @@ import { TasksContext } from 'providers/TasksProvider';
 
 const Game = () => {
   const { results } = useContext(TasksContext);
-  console.log(results, 'w game results');
   return (
     <Wrapper>
       <Results>
