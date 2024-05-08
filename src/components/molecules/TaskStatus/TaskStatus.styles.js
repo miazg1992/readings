@@ -8,10 +8,9 @@ export const Images = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 25vh;
   img {
-    align-self: flex-start;
-    width: 50%;
+    /* align-self: flex-start; */
+    width: 45%;
     height: auto;
     margin: 20px;
 
@@ -26,10 +25,13 @@ export const Images = styled.div`
       width: 70%;
     }
     @media (min-width: 576px) and (orientation: landscape) {
-      width: 60%;
+      width: 50%;
     }
     @media (min-width: 768px) and (orientation: landscape) {
       width: 60%;
+      img {
+        align-self: flex-start;
+      }
     }
   }
 `;

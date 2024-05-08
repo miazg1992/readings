@@ -19,13 +19,11 @@ export const TaskStatus = ({ taskStatus }) => {
   };
   const imgName = createImgName();
   return (
-    <Wrapper>
-      <Images>
-        <img
-          src={`${process.env.PUBLIC_URL}assets/img/${imgName}-monster.gif`}
-        ></img>
-        <img src={`${process.env.PUBLIC_URL}assets/img/${imgName}.png`}></img>
-      </Images>
-    </Wrapper>
+    <Images>
+      <img
+        src={`${process.env.PUBLIC_URL}assets/img/${imgName}-monster.gif`}
+      ></img>
+      <img src={`${process.env.PUBLIC_URL}assets/img/${imgName}.png`}></img>
+    </Images>
   );
 };

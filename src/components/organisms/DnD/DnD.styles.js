@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Button } from 'components/atoms/Button/Button';
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 2vw;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -35,5 +34,9 @@ export const DnDWrapper = styled.div`
 
   @media (min-width: 576px) {
     width: 80%;
+    min-height: 30vh;
+  }
+  @media (min-width: 992px) {
+    min-height: 25vh;
   }
 `;

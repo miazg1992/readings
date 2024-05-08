@@ -11,7 +11,10 @@ export const Wrapper = styled.div`
   }
 
   @media (min-width: 576px) and (orientation: landscape) {
-    min-height: 45vh;
+    min-height: 35vh;
+  }
+  @media (min-width: 576px) and (orientation: portrait) {
+    min-height: 20vh;
   }
 `;
 
@@ -35,11 +38,11 @@ export const ImgWrapper = styled.div`
     }
 
     @media (min-width: 576px) and (orientation: landscape) {
-      max-height: 40vh;
+      max-height: 30vh;
     }
 
     @media (min-width: 700px) {
-      max-height: 35vh;
+      max-height: 30vh;
     }
   }
 `;
