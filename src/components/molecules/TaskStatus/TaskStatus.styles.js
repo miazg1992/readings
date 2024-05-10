@@ -12,7 +12,7 @@ export const Images = styled.div`
     /* align-self: flex-start; */
     width: 45%;
     height: auto;
-    margin: 20px;
+    margin: 10px;
 
     &:nth-child(2) {
       width: 20%;

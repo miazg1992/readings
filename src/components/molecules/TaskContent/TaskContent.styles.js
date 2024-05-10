@@ -5,15 +5,12 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 576px) {
-    flex-direction: row;
-    min-height: 30vh;
-  }
-
   @media (min-width: 576px) and (orientation: landscape) {
+    flex-direction: row;
     min-height: 35vh;
   }
   @media (min-width: 576px) and (orientation: portrait) {
+    flex-direction: row;
     min-height: 20vh;
   }
 `;

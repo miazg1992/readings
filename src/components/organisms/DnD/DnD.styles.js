@@ -36,6 +36,11 @@ export const DnDWrapper = styled.div`
     width: 80%;
     min-height: 30vh;
   }
+  @media (min-width: 768px) {
+    padding-bottom: 20px;
+    padding-top: 0px;
+  }
+
   @media (min-width: 992px) {
     min-height: 25vh;
   }
