@@ -11,19 +11,19 @@ import TasksProvider, {
 } from 'providers/TasksProvider';
 
 const Navigation = () => {
-  const { selectStage } = useContext(TasksContext);
+  const { selectStageGame } = useContext(TasksContext);
   return (
     <Wrapper>
       <StyledLink
         to="/syllables"
-        onClick={() => selectStage(STAGE_TYPES.syllables)}
+        onClick={() => selectStageGame({ stage: STAGE_TYPES.syllables })}
       >
         <img src={syllables}></img>
         <h2>Sylaby</h2>
       </StyledLink>
       <StyledLink
         to="/sentences"
-        onClick={() => selectStage(STAGE_TYPES.sentences)}
+        onClick={() => selectStageGame({ stage: STAGE_TYPES.sentences })}
       >
         <img src={sentences}></img>
         <h2>Czytam zdania</h2>

@@ -57,6 +57,7 @@ const DnD = ({ activeTask }) => {
     }
   };
   const checkAnswer = () => {
+    console.log('sprawdzam odp', activeTask);
     let isCorrect = false;
     const checkedContainers = containers.slice(1);
 
@@ -77,7 +78,7 @@ const DnD = ({ activeTask }) => {
     });
     const containIncorrectAnswer = answers.includes(false);
     isCorrect = !containIncorrectAnswer;
-    changeTaskStatus(isCorrect);
+    changeTaskStatus(activeTask, isCorrect);
   };
 
   const sensors = useSensors(
@@ -119,6 +120,7 @@ const DnD = ({ activeTask }) => {
     }
   };
   const initTask = (activeTask) => {
+    console.log('noweActT', activeTask);
     if (activeTask) {
       const { syllables } = activeTask;
       generateContainers(syllables);
@@ -241,7 +243,9 @@ const DnD = ({ activeTask }) => {
         {isSolved ? (
           <Button onClick={() => initTask(activeTask)}> R</Button>
         ) : null}
-        {isSolved ? <Button onClick={updateActiveIndex}> x</Button> : null}
+        {isSolved ? (
+          <Button onClick={() => updateActiveIndex(activeTask)}> x</Button>
+        ) : null}
       </Wrapper>
       {createPortal(
         <DragOverlay>
