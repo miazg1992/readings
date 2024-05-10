@@ -15,10 +15,14 @@ export const STAGE_TYPES = {
   sentences: 'SENTENCES',
 };
 
+// export const defaultStage = {
+//   stage: STAGE_TYPES.syllables,
+//   level: 0,
+//   index: 0,
+// };
+
 export const defaultStage = {
   stage: STAGE_TYPES.syllables,
-  level: 0,
-  index: 0,
 };
 
 const dataSyllables = [
@@ -191,43 +195,33 @@ const TasksProvider = ({ children }) => {
   const amountTasksInLevel = 10;
   const [loading, setLoading] = useState(true);
 
-  const selectStageGame = (
-    stage = { stage: STAGE_TYPES.syllables, level: 0, index: 0 },
-  ) => {
-    let newStage;
+  const selectStageGame = (stage) => {
+    let newStage = { stage: null, level: null, index: null };
     if (stage.stage === STAGE_TYPES.sentences) {
-      newStage = { stage: STAGE_TYPES.sentences, level: 0, index: 0 };
-      setStageGame(newStage);
+      newStage.stage = STAGE_TYPES.sentences;
     } else {
-      newStage = { stage: STAGE_TYPES.syllables, level: 0, index: 0 };
-      setStageGame(newStage);
+      newStage.stage = STAGE_TYPES.syllables;
     }
+    if (stage.level) {
+      newStage.level = stage.level;
+    } else {
+      newStage.level = 0;
+    }
+    if (stage.index) {
+      newStage.index = stage.index;
+    } else {
+      newStage.index = 0;
+    }
+
     generateTasks(newStage);
     if (stage) addToLocalStorage('stage', JSON.stringify(newStage));
-
+    setStageGame(newStage);
     // let stageInLocalStorageII = getFromLocalStorage('stage');
     // console.log(stageInLocalStorageII, 'w storage II yyy');
   };
-  // const selectStage = (stage) => {
-  //   let stageName;
-  //   if (stage === STAGE_TYPES.sentences) {
-  //     setStage(STAGE_TYPES.sentences);
-  //     generateTasks(dataSentences);
-  //     stageName = stage;
-  //   } else {
-  //     setStage(STAGE_TYPES.syllables);
-  //     generateTasks(dataSyllables);
-  //     stageName = stage;
-  //   }
-  //   if (stageName) addToLocalStorage('stage', stageName);
-
-  //   let stageInLocalStorageII = getFromLocalStorage('stage');
-  //   console.log(stageInLocalStorageII, 'w storage II yyy');
-  // };
 
   useEffect(() => {
     let storedStageGame = JSON.parse(localStorage.getItem('stage'));
-    console.log(storedStageGame, 'stageInLocalStorage, po odświeżeniu');
     if (storedStageGame) {
       console.log('if', storedStageGame);
       selectStageGame(storedStageGame);
