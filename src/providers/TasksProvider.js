@@ -176,8 +176,11 @@ export const TasksContext = React.createContext({
   generateActiveTask: () => {},
   updateResult: () => {},
   changeTaskStatus: () => {},
+  changeTaskStatusII: () => {},
+
   selectStageGame: () => {},
   updateActiveIndex: () => {},
+  updateActiveTaskStatus: () => {},
 });
 
 const TasksProvider = ({ children }) => {
@@ -217,25 +220,16 @@ const TasksProvider = ({ children }) => {
     if (stage) addToLocalStorage('stage', JSON.stringify(newStage));
     setStageGame(newStage);
     // let stageInLocalStorageII = getFromLocalStorage('stage');
-    // console.log(stageInLocalStorageII, 'w storage II yyy');
   };
 
   useEffect(() => {
     let storedStageGame = JSON.parse(localStorage.getItem('stage'));
     if (storedStageGame) {
-      console.log('if', storedStageGame);
       selectStageGame(storedStageGame);
     } else {
-      console.log('default');
       selectStageGame(defaultStage);
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log('generuję zadania bp stan', stage);
-  //   console.log(activeTask, 'actTask');
-  //   // generateTasks();
-  // }, [stage]);
 
   useEffect(() => {
     if (tasks.length > 0) {
@@ -257,18 +251,23 @@ const TasksProvider = ({ children }) => {
       const max = level * amountTasksInLevel;
       const min = max - amountTasksInLevel;
       const tasks = data.slice(min, max);
-      console.log(tasks, 'tasks');
       setTasks(tasks);
       generateActiveTask(tasks, index);
     } else return;
   };
 
   const generateActiveTask = (tasks, index) => {
-    console.log(index, 'i');
     const activeTask = tasks[index];
     activeTask.status = taskStatus.inProgress;
     setActiveTask(activeTask);
     setLoading(false);
+  };
+
+  const updateActiveTaskStatus = (status) => {
+    setActiveTask((task) => {
+      task.status = status;
+      return task;
+    });
   };
 
   const generateResults = () => {
@@ -276,59 +275,22 @@ const TasksProvider = ({ children }) => {
     setResults([...results]);
   };
   const updateStoredStage = (stage) => {
-    console.log(stage, 'niby do aktualizacj');
     const updateStage = stage;
     localStorage.setItem('stage', JSON.stringify(updateStage));
   };
 
-  // const updateActiveIndex = ({ id }) => {
-  //   console.log(stageGame, 'stageGame');
-  //   console.log(id, 'id w upAI');
-  //   const activeIndex = tasks.findIndex((task) => (task.id = id));
-  //   console.log(activeIndex, 'w updateAI');
-  //   setStageGame((stage) => {
-  //     console.log(stage, 'obiekt sdtage');
-  //     console.log(typeof stage.index);
-  //     console.log(tasks, 'tasks');
-  //     if (
-  //       stage.index < amountTasksInLevel - 1 &&
-  //       stage.index < tasks.length - 1
-  //     ) {
-  //       stage.index = stage.index * 1 + 1;
-  //       generateActiveTask(tasks, stage.index);
-  //       console.log(stage.index, 'index w if');
-  //       updateStoredStage(stage);
-  //     } else {
-  //       stage.level = stage.level * 1 + 1;
-  //       stage.index = 0;
-  //       console.log(stage.level, stage.index, 'else');
-  //       updateStoredStage(stage);
-  //       alert('koniec poziomu, gratulujemy ');
-  //     }
-
-  //     return stage.index;
-  //   });
-  // };
-
   const updateActiveIndex = ({ id }) => {
-    console.log(stageGame, 'stageGame');
-    console.log(id, 'id w upAI');
     const activeIndex = tasks.findIndex((task) => (task.id = id));
-    console.log(activeIndex, 'w updateAI');
     let newStageGame;
     setStageGame(({ index, level, stage }) => {
-      console.log(stage, level, index, 'sdtage');
       if (index < amountTasksInLevel - 1 && index < tasks.length - 1) {
         index = index + 1;
         generateActiveTask(tasks, index);
-        console.log(index, 'index w if');
         newStageGame = { stage, level, index };
-        console.log(newStageGame, 'nweStageGame');
         updateStoredStage(newStageGame);
       } else {
         level = level * 1 + 1;
         index = 0;
-        console.log(level, index, 'else');
         newStageGame = { stage, level, index };
         updateStoredStage(newStageGame);
         alert('koniec poziomu, gratulujemy ', level);
@@ -339,18 +301,23 @@ const TasksProvider = ({ children }) => {
   };
 
   const changeTaskStatus = (activeTask, isCorrect) => {
-    console.log('zmiana statusu zadania', isCorrect);
-    console.log(activeTask, 'activeTask');
     const index = tasks.findIndex((task) => task.id === activeTask.id);
-    console.log(index, 'index');
     if (isCorrect) {
       tasks[index].status = taskStatus.correctAnswer;
-      console.log(taskStatus.correctAnswer);
-      console.log(tasks, 'w change');
       setTasks([...tasks]);
     } else {
       tasks[index].status = taskStatus.incorrectAnswer;
-      console.log(taskStatus.incorrectAnswer);
+      setTasks([...tasks]);
+    }
+  };
+
+  const changeTaskStatusII = (activeTask, status) => {
+    const index = tasks.findIndex((task) => task.id === activeTask.id);
+    if (status) {
+      tasks[index].status = taskStatus.inProgress;
+      setTasks([...tasks]);
+    } else {
+      tasks[index].status = taskStatus.incorrectAnswer;
       setTasks([...tasks]);
     }
   };
@@ -364,8 +331,10 @@ const TasksProvider = ({ children }) => {
         results,
         loading,
         changeTaskStatus,
+        changeTaskStatusII,
         selectStageGame,
         updateActiveIndex,
+        updateActiveTaskStatus,
       }}
     >
       {children}

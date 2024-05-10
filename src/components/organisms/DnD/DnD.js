@@ -14,8 +14,9 @@ import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { createPortal } from 'react-dom';
 import ItemCard from './ItemCard/ItemCard';
 import { DnDWrapper, Wrapper } from './DnD.styles';
-import { TasksContext } from 'providers/TasksProvider';
+import { TasksContext, taskStatus } from 'providers/TasksProvider';
 import { includes } from 'lodash';
+import { TaskStatus } from 'components/molecules/TaskStatus/TaskStatus';
 
 const DnD = ({ activeTask }) => {
   const firstContainerId = 'TODO';
@@ -36,8 +37,13 @@ const DnD = ({ activeTask }) => {
 
   const [isSolved, setIsSolved] = useState(false);
 
-  const { result, changeTaskStatus, updateActiveIndex } =
-    useContext(TasksContext);
+  const {
+    result,
+    changeTaskStatus,
+    changeTaskStatusII,
+    updateActiveIndex,
+    updateActiveTaskStatus,
+  } = useContext(TasksContext);
 
   const checkIsCompleted = () => {
     const checkedContainers = containers.slice(1);
@@ -57,7 +63,6 @@ const DnD = ({ activeTask }) => {
     }
   };
   const checkAnswer = () => {
-    console.log('sprawdzam odp', activeTask);
     let isCorrect = false;
     const checkedContainers = containers.slice(1);
 
@@ -120,12 +125,18 @@ const DnD = ({ activeTask }) => {
     }
   };
   const initTask = (activeTask) => {
-    console.log('noweActT', activeTask);
     if (activeTask) {
       const { syllables } = activeTask;
       generateContainers(syllables);
       generateItems(syllables);
       setIsSolved(false);
+    }
+  };
+
+  const repeaTask = (activeTask) => {
+    if (activeTask) {
+      changeTaskStatusII(activeTask, taskStatus.inProgress);
+      initTask(activeTask);
     }
   };
 
@@ -241,7 +252,7 @@ const DnD = ({ activeTask }) => {
           </SortableContext>
         </DnDWrapper>
         {isSolved ? (
-          <Button onClick={() => initTask(activeTask)}> R</Button>
+          <Button onClick={() => repeaTask(activeTask)}> R</Button>
         ) : null}
         {isSolved ? (
           <Button onClick={() => updateActiveIndex(activeTask)}> x</Button>
